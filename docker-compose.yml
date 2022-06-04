@@ -23,7 +23,7 @@ services:
         image: nginx:alpine
         restart: unless-stopped
         ports: 
-            - "8989:80"
+            - "80:80"
         volumes: 
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
@@ -67,6 +67,21 @@ services:
         image: redis:latest
         networks: 
             - rede
+ #PHPMyAdmin
+    admin:
+        image: phpmyadmin/phpmyadmin:latest
+        links:
+            - mysql
+        ports:
+            - 8080:80
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=${DB_HOST}
+            - PMA_USER=${DB_USERNAME}
+            - PMA_PASSWORD=${DB_PASSWORD}
+        networks:
+            - rede
+
 
 networks: 
     rede:
