@@ -81,8 +81,6 @@ services:
             - PMA_PASSWORD=${DB_PASSWORD}
         networks:
             - rede
-
-
 networks: 
     rede:
         driver: bridge
