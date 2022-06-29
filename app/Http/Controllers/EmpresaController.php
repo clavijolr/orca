@@ -8,14 +8,17 @@ use Datatables;
 
 class EmpresaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
         $titulo='CFM - Cadastro de Empresas';
-        
+
         if(request()->ajax()) {
-            return datatables()->of(Empresa::select('*'))
-            ->make(true);
+            return datatables()->of(Empresa::get())->make(true);
         }
 
         return view('empresas.empresa',compact('titulo'));
@@ -32,6 +35,8 @@ class EmpresaController extends Controller
              ['id' => $request->id ],
              ['empresa'=>$request->input('empresa'),
              'cpfcnpj'=>$request->input('cpfcnpj'),
+             'empreiteira'=>!is_null($request->input('empreiteira')),
+             'tipo_pessoa'=>$request->input('empresa_tipo_pessoa'),
              ]
          );
         //$retorno= $request->input('empresa');
@@ -43,6 +48,6 @@ class EmpresaController extends Controller
     {
         $empresa = Empresa::where('id',$request->id)->delete();
         return Response()->json($empresa);
-    }    
+    }
 
 }

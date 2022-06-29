@@ -3,20 +3,28 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\Grupo;
 use Datatables;
 
 
 class CategoriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
-        $titulo='CFM - Cadastro de Categorias';
-        
+
         if(request()->ajax()) {
-            return datatables()->of(Categoria::select('*'))
+            return datatables()->of(Categoria::with('grupo')->get())
             ->make(true);
         }
+
+        $titulo='CFM - Cadastro de Categorias';
+        //$categorias=Categoria::with('grupo')->get();
+        //dd($categorias->grupo->grupo);
 
         return view('categorias.categoria',compact('titulo'));
 
@@ -30,10 +38,10 @@ class CategoriaController extends Controller
     {
         $retorno = Categoria::updateOrCreate(
              ['id' => $request->id ],
-             ['grupo'=>$request->input('grupo'),
+             ['categoria'=>$request->input('categoria'),
+              'grupo_id'=>$request->input('categoria_grupo_id'),
              ]
          );
-        //$retorno= $request->input('categoria');
 
         return json_encode($retorno);
     }
@@ -42,6 +50,13 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::where('id',$request->id)->delete();
         return Response()->json($categoria);
-    }    
+    }
+    public function get_grupos(Request $request)
+    {
+        $grupos = Grupo::get(['id','grupo']);
+        return response()->json(['grupos' => $grupos]);
+    }
+
+
 
 }

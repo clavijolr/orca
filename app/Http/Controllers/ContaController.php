@@ -10,6 +10,10 @@ use function PHPUnit\Framework\isEmpty;
 
 class ContaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -21,25 +25,18 @@ class ContaController extends Controller
         return view('contas.conta',compact('titulo'));
 
     }
+
     public function store(Request $request)
     {
-        //dd($request);
-        //$data = Input::all();
-        $ret = ['verdadeiro'=>'recebeu'];
-        if(empty($request->id)){
-            
-            $result=false;
-            //$result=$request->id;
-        }else{
-            $result=Conta::where('id','=',$request->id)->firstOrFail()->update([
-                    'descricao'=>$request->input('descricao'),
-                    'agencia'=>$request->input('agencia'),
-                    'conta'=>$request->input('conta'),
-                    'saldo'=>$request->input('saldo'),
-                ]);        
-        }
-
-        return json_encode($result);
+        $retorno = Conta::updateOrCreate(
+            ['id' => $request->id ],
+            ['descricao'=>$request->input('descricao'),
+             'agencia'=>$request->input('agencia'),
+             'conta'=>$request->input('conta'),
+             'saldo'=>floatval(str_replace(',', '.', str_replace('.', '', $request->input('conta_saldo')))),
+            ]
+        );
+        return json_encode($retorno);
     }
 
     public function edit(Request $request)

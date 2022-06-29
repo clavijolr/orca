@@ -99,3 +99,6 @@ Route::get('movimentacao/get_obra', [MovimentacaoController::class, 'get_obra'])
 //Route::get('movimentacao/get_conta', [MovimentacaoController::class, 'get_conta']);
 //Route::get('teste', [MovimentacaoController::class, 'get_empresa']);
 //Route::get('token', function () { return csrf_token();});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

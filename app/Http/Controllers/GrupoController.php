@@ -8,11 +8,15 @@ use Datatables;
 
 class GrupoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
         $titulo='CFM - Cadastro de Grupos';
-        
+
         if(request()->ajax()) {
             return datatables()->of(Grupo::select('*'))
             ->make(true);
@@ -30,8 +34,9 @@ class GrupoController extends Controller
     {
          $retorno = Grupo::updateOrCreate(
             ['id' => $request->id ],
-            ['grupo'=>$request->input('grupo'),
-            'tipo'=>$request->input('tipo'),
+            ['grupo'=>$request->input('grupo_grupo'),
+            'tipo'=>$request->input('grupo_tipo'),
+            'tipo_pessoa'=>$request->input('grupo_tipo_pessoa'),
             ]
         );
 
@@ -42,6 +47,6 @@ class GrupoController extends Controller
     {
         $grupo = Grupo::where('id',$request->id)->delete();
         return Response()->json($grupo);
-    }    
+    }
 
 }
