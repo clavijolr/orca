@@ -28,6 +28,8 @@ class ContaController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->id);
+
         $retorno = Conta::updateOrCreate(
             ['id' => $request->id ],
             ['descricao'=>$request->input('descricao'),
