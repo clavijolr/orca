@@ -22,7 +22,7 @@ class CategoriaController extends Controller
             ->make(true);
         }
 
-        $titulo='CFM - Cadastro de Categorias';
+        $titulo='ORCA - Cadastro de Categorias';
         //$categorias=Categoria::with('grupo')->get();
         //dd($categorias->grupo->grupo);
 
