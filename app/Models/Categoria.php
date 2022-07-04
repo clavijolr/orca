@@ -18,5 +18,13 @@ class Categoria extends Model
     {
         return $this->belongsTo(Grupo::class);
     }
+    public function subcategorias()
+    {
+        return $this->hasMany(Subcategoria::class);
+    }
+    public function movimentacoes()
+    {
+        return $this->hasMany(Movimentacao::class);
+    }
 
 }

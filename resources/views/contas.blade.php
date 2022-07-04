@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>   
-                @livewire('cadastro-contas')                                   
+                @include('cadastros.contas')                                   
             </section>
         <!-- contas list ends -->
         </div>

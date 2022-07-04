@@ -16,7 +16,7 @@ class ObraController extends Controller
 
     public function index()
     {
-        $titulo='ORCA - Obras';
+        $titulo='CFM - Obras';
         if(request()->ajax()) {
             return datatables()->of(Obra::select('*'))
             ->make(true);
@@ -28,17 +28,27 @@ class ObraController extends Controller
     public function store(Request $request)
     {
         $data_inicio = $request->input('obra_data_inicio');
-        $data_fim = $request->input('obra_data_fim');
-       // return json_encode($data_fim);
+        $data_fim =$request->input('obra_data_fim') ;
 
-        $retorno = Obra::updateOrCreate(
-            ['id' => $request->id ],
-            ['descricao'=>$request->input('obra_descricao'),
-             'data_inicio'=>Carbon::parse($data_inicio)->format('Y-m-d'),
-             'data_fim'=>Carbon::parse($data_fim)->format('Y-m-d')
-            ]
-        );
+        if (empty($data_fim)){
+            $retorno = Obra::updateOrCreate(
+                ['id' => $request->id ],
+                ['descricao'=>$request->input('obra_descricao'),
+                'data_inicio'=>Carbon::parse($data_inicio)->format('Y-m-d'),
+                'data_fim'=>null,
+                ]
+            );
+        }else{
+            $retorno = Obra::updateOrCreate(
+                ['id' => $request->id ],
+                ['descricao'=>$request->input('obra_descricao'),
+                'data_inicio'=>Carbon::parse($data_inicio)->format('Y-m-d'),
+                'data_fim'=>Carbon::parse($data_fim)->format('Y-m-d'),
+                ]
+            );
 
+        }
+       //return json_encode(array($data_inicio, $data_fim));
         return json_encode($retorno);
     }
 

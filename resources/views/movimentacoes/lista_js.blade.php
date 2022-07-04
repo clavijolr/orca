@@ -15,6 +15,24 @@
 
 
 <script type="text/javascript">
+    function apagar(id,descricao)
+    {
+        if (confirm('Deseja apagar a movimentacao '+descricao+' realmente?')) {
+            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                type: "post",
+                url: "{{ url('movimentacao/apagar/#registro') }}".replace('#registro',id),
+                data: "do=getInfo",
+                success: function(result) {
+                    $('#datatables-movimentacao').DataTable().ajax.reload();
+                },
+                error: function(result) {
+                    //console.log('falha apgar');
+                }
+            });
+        }
+        return false;
+    };
 
     // Picker Translations
     $('.pickadate').pickadate();

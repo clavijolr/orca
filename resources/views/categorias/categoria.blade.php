@@ -20,9 +20,9 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Permissões</th>
                                             <th>Grupo</th>
                                             <th>Categoria</th>
+                                            <th>Permissões</th>
                                             <th>Ação</th>
                                         </tr>
                                     </thead>

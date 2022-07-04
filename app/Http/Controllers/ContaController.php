@@ -17,7 +17,7 @@ class ContaController extends Controller
 
     public function index()
     {
-        $titulo='ORCA - Contas';
+        $titulo='CFM - Contas';
         if(request()->ajax()) {
             return datatables()->of(Conta::select('*'))
             ->make(true);

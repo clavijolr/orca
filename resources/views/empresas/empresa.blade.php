@@ -22,6 +22,7 @@
                                             <th>Entidade</th>
                                             <th>Documento</th>
                                             <th>Tipo Pessoa</th>
+                                            <th>Especial</th>
                                             <th>Ação</th>
                                         </tr>
                                     </thead>

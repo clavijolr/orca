@@ -1,7 +1,6 @@
     <script src="{{ asset(mix('vendors/js/pickers/pickadate/picker.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/pickers/pickadate/picker.date.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/pickers/pickadate/legacy.js')) }}"></script>
-    {{-- <script src="{{ asset(mix('js/scripts/forms/pickers/form-pickers.js')) }}"></script> --}}
 
     <!-- BEGIN: Page Vendor JS-->
     <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
@@ -9,13 +8,31 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.bootstrap4.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
+    
     <!-- END: Page Vendor JS-->
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
-
-    <script src="{{asset('js/scripts/components/components-navs.js')}}"></script>
+    <script src="{{ asset('js/scripts/components/components-navs.js')}}"></script>
+    
+    <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
+    <script src="{{ asset('vendors/js/pickers/flatpickr/pt.js') }}"></script>
 
 <script type="text/javascript">
+
+        const $dta_ini = $("#obra_data_inicio").flatpickr({
+            locale: "pt" ,
+            defaultdate:"null",            
+            altInput: true,
+            dateFormat: "Y-m-d",
+        });
+
+        const $dta_fim = $("#obra_data_fim").flatpickr({
+            locale: "pt" ,
+            defaultdate:"null",            
+            altInput: true,
+            dateFormat: "Y-m-d",
+            
+        });
+
 
     var filtroTeclas = function(event)
     {
@@ -40,13 +57,13 @@
         return isnumber
     };
 
-// FORM DE CADASTROS
     $('#form_movimentacao').submit(function(event)
     {
         event.preventDefault();
         //console.log($(this).serialize());
         $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-
+        
+      
         $.ajax({
             url: "{{ url('movimentacao/nova') }}",
             type: "post",
@@ -61,11 +78,15 @@
                 $('#mv_grupo_id').val('');
                 $('#mv_categoria_id').val('');
                 $('#mv_subcategoria_id').val('');
+                $('#mv_obra_id').val('');
+                $('#mv_imovel_id').val('');
                 $('#mv_pessoa_id').val('');
                 $('#mv_descricao').val('');
                 $('#mv_tipo').val('');
                 $('#mv_valor').val('');
+              
                 $('#datatables-movimentacao').DataTable().ajax.reload();
+
             },
             error: function(result) {
 
@@ -75,6 +96,8 @@
         });
 
     });
+// FORM DE CADASTROS
+
     $('#gravarEmpresaForm').submit(function(event)
     {
         event.preventDefault();
@@ -86,18 +109,14 @@
             data: $(this).serialize(),
             dataType:'json',
             success: function(result) {
-                $('#empresa_id').val('');
-                $('#empresa').val('');
-                $('#cpfcnpj').val('');
                 atualiza_empresa();
                 $('#div_cadastro_empresa').modal("hide");
                 $("#mv_empresa_id").focus();
             },
             error: function(result) {
-                //console.log("falha receber ");
+                console.log("falha receber ");
             }
         });
-
     });
     $('#gravarContaForm').submit(function(event)
     {
@@ -110,12 +129,12 @@
             data: $(this).serialize(),
             dataType:'json',
             success: function(result) {
+                atualiza_conta();
                 $('#conta_id').val('');
                 $('#conta_descricao').val('');
                 $('#agencia').val('');
                 $('#conta').val('');
                 $('#conta_saldo').val('');
-                atualiza_conta();
                 $('#div_cadastro_conta').modal("hide");
                 $("#mv_conta_id").focus();
 
@@ -136,10 +155,10 @@
             data: $(this).serialize(),
             dataType:'json',
             success: function(result) {
+                atualiza_grupo();
                 $('#grupo_id').val('');
                 $('#grupo_grupo').val('');
                 $('#grupo_tipo').val('');
-                atualiza_grupo();
                 $('#div_cadastro_grupo').modal("hide");
                 $("#mv_grupo_id").focus();
             },
@@ -171,7 +190,8 @@
         });
 
     });
-    $('#gravarSubcategoriaForm').submit(function(event){
+    $('#gravarSubcategoriaForm').submit(function(event)
+    {
         event.preventDefault();
         id='novo';
         $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
@@ -183,7 +203,7 @@
             success: function(result) {
                 atualiza_subcategoria();
                 $('#div_cadastro_subcategoria').modal("hide");
-                $("#mv_categoria_id").focus();
+                $("#mv_subcategoria_id").focus();
             },
             error: function(result) {
                 //console.log("falha receber dados");
@@ -191,14 +211,33 @@
         });
 
     });
+    $('#gravarObraForm').submit(function(event){
+        event.preventDefault();
+        id='novo';
+        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        $.ajax({
+            url: "{{ url('obra/gravar/#id') }}".replace('#id',id),
+            type: "post",
+            data: $(this).serialize(),
+            dataType:'json',
+            success: function(result) {
+                //console.log(result);
+                atualiza_obra();
+                $('#div_cadastro_obra').modal("hide");
+                $("#mv_obra_id").focus();
+                
+            },
+            error: function(result) {
+                console.log(result);
+            }
+        });
+
+    });
+
     $('#gravarPessoaForm').submit(function(event)
     {
         event.preventDefault();
-        if (!$('#pessoa_id').val()){
-            id='novo';
-        }else{
-            id=$('#pessoa_id').val();
-        }
+        id='novo';
         $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $.ajax({
             url: "{{ url('pessoa/gravar/#id') }}".replace('#id',id),
@@ -218,38 +257,6 @@
     });
 
     // AJAX DOS CADASTROS
-    function atualiza_empresa()
-    {
-        $("#mv_empresa_id").empty();
-        var option = "<option value='' selected disabled hidden>Escolha a Empresa</option>";
-        $("#mv_empresa_id").append(option);
-
-        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-        $.ajax({
-            url: "{{ url('movimentacao/get_empresa') }}",
-            type: "post",
-            dataType:'json',
-            success: function(result) {
-                var len = 0;
-                if (result.empresas != null) {
-                    len = result.empresas.length;
-                }
-                if (len>0) {
-                    for (var i = 0; i<len; i++) {
-                        var id = result.empresas[i].id;
-                        var empresa = result.empresas[i].empresa;
-                        var tipo_pessoa = result.empresas[i].tipo_pessoa;
-                        var option = "<option tipo_pessoa ='" + tipo_pessoa + "' value='" + id + "'>"+empresa+"</option>";
-                        $("#mv_empresa_id").append(option);
-                    }
-                }
-            },
-            error: function(result) {
-                //console.log("falha receber empresa");
-            }
-        });
-
-    };
     function atualiza_conta()
     {
         $("#mv_conta_id").empty();
@@ -281,14 +288,47 @@
             }
         });
     };
+    function atualiza_empresa()
+    {
+        $("#mv_empresa_id").empty();
+        var option = "<option value='' selected disabled hidden>Escolha a Empresa</option>";
+        $("#mv_empresa_id").append(option);
 
+        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        $.ajax({
+            url: "{{ url('movimentacao/get_empresa') }}",
+            type: "post",
+            dataType:'json',
+            success: function(result) {
+                var len = 0;
+                if (result.empresas != null) {
+                    len = result.empresas.length;
+                }
+                if (len>0) {
+                    for (var i = 0; i<len; i++) {
+                        var id = result.empresas[i].id;
+                        var empresa = result.empresas[i].empresa;
+                        var tipo_pessoa = result.empresas[i].tipo_pessoa;
+                        var empreiteira = result.empresas[i].empreiteira;
+                        var option = "<option tipo_pessoa ='" + tipo_pessoa + "'empreiteira='"+empreiteira+"' value='" + id + "'>"+empresa+"</option>";
+                        $("#mv_empresa_id").append(option);
+                    }
+                }
+            },
+            error: function(result) {
+                //console.log("falha receber empresa");
+            }
+        });
+
+    };
     function atualiza_grupo()
     {
         $("#mv_grupo_id").empty();
         var option = "<option value='' selected disabled hidden>Escolha um grupo</option>";
         $("#mv_grupo_id").append(option);
 
-        if ($("#mv_empresa_id").val() > 0) {
+        if ($("#mv_empresa_id").val() > 0) 
+        {
             var tipo_pessoa  = $("#mv_empresa_id").find(':selected').attr('tipo_pessoa');
             $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
             $.ajax({
@@ -316,7 +356,6 @@
             });
         }
     };
-
     function atualiza_categoria()
     {
         $("#mv_categoria_id").empty();
@@ -356,7 +395,6 @@
             $("#mv_categoria_id").append(option);
         }
     }
-
     function atualiza_subcategoria()
     {
         $("#mv_subcategoria_id").empty();
@@ -397,6 +435,44 @@
             });
         }
     };
+    function atualiza_obra()
+    {
+        $("#mv_obra_id").empty();
+        var option = "<option value='' selected disabled hidden>Escolha uma obra</option>";
+        $("#mv_obra_id").append(option);
+        let perimete_obras=$("#mv_empresa_id").find(':selected').attr('empreiteira') ;
+      
+        if (perimete_obras == 1){
+            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                url: "{{ url('movimentacao/get_obra') }}",
+                type: "post",
+                dataType:'json',
+                success: function(result) {
+                    $('#mv_obra_id').prop('disabled', false);
+
+                    let len = 0;
+                    if (result.obras != null) {
+                        len = result.obras.length;
+                    }
+                    if (len>0) {
+                        for (var i = 0; i<len; i++) {
+                            let id = result.obras[i].id;
+                            let obra = result.obras[i].descricao;
+                            let option = "<option value='" + id + "'>" + obra + "</option>";
+                            $("#mv_obra_id").append(option);
+                        }
+                    }
+                },
+                error: function(result) {
+                    console.log(result);
+                    console.log("falha receber obras");
+                }
+            });
+        }else{
+            $('#mv_obra_id').prop('disabled', 'disabled');
+        }
+    };
     function atualiza_pessoa()
     {
         $("#mv_pessoas_id").empty();
@@ -427,25 +503,7 @@
             }
         });
     };
-    function apagar(id,descricao)
-    {
-        if (confirm('Deseja apagar a movimentacao '+descricao+' realmente?')) {
-            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-                type: "post",
-                url: "{{ url('movimentacao/apagar/#registro') }}".replace('#registro',id),
-                data: "do=getInfo",
-                success: function(result) {
-                    $('#datatables-movimentacao').DataTable().ajax.reload();
-                },
-                error: function(result) {
-                    //console.log('falha apgar');
-                }
-            });
-        }
-        return false;
-    };
-
+   
     function lista_grupos(grupo_id_atual='')
     {
 
@@ -512,7 +570,31 @@
             }
         });
     };
-
+    function validateDate(id) {
+        var RegExPattern = /^((((0?[1-9]|[12]\d|3[01])[\.\-\/](0?[13578]|1[02])      [\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|((0?[1-9]|[12]\d|30)[\.\-\/](0?[13456789]|1[012])[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|((0?[1-9]|1\d|2[0-8])[\.\-\/]0?2[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|(29[\.\-\/]0?2[\.\-\/]((1[6-9]|[2-9]\d)?(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)|00)))|(((0[1-9]|[12]\d|3[01])(0[13578]|1[02])((1[6-9]|[2-9]\d)?\d{2}))|((0[1-9]|[12]\d|30)(0[13456789]|1[012])((1[6-9]|[2-9]\d)?\d{2}))|((0[1-9]|1\d|2[0-8])02((1[6-9]|[2-9]\d)?\d{2}))|(2902((1[6-9]|[2-9]\d)?(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)|00))))$/;
+        if (!((id.value.match(RegExPattern)) && (id.value!=''))) {
+            alert('Data inválida.');
+            id.focus();
+        }
+    }
+    function apagar(id,descricao)
+    {
+        if (confirm('Deseja apagar a movimentacao '+descricao+' realmente?')) {
+            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                type: "post",
+                url: "{{ url('movimentacao/apagar/#registro') }}".replace('#registro',id),
+                data: "do=getInfo",
+                success: function(result) {
+                    $('#datatables-movimentacao').DataTable().ajax.reload();
+                },
+                error: function(result) {
+                    //console.log('falha apgar');
+                }
+            });
+        }
+        return false;
+    };
 
     //BOTOES PARA ABRIR FORMULARIOS DE CADASTRO
     $( "#btn_empresa" ).click(function()
@@ -568,6 +650,18 @@
         $('#div_cadastro_subcategoria').modal("show");
         return;
     });
+    $( "#btn_obra" ).click(function()
+    {
+        alert('obra');
+        $('#obra_id').val('');
+        $('#obra_descricao').val('');
+        $dta_ini.clear();
+        $dta_fim.clear();
+        $('tituloModalObra').text("Criar Obra");
+        $('#btn_criar_atualizar_obra').text('Criar');
+        $('#div_cadastro_obra').modal("show");
+        return;
+    });
     $( "#btn_pessoa" ).click(function()
     {
         $('#pessoa_id').val('');
@@ -578,13 +672,14 @@
         $('#div_cadastro_pessoa').modal("show");
         return;
     });
-
     // SELECTS QUE DISPARAM ENVENTOS COM ALTERAÇÕES
     $('#mv_empresa_id').change(function()
     {
         atualiza_grupo();
         atualiza_categoria();
         atualiza_subcategoria();
+        atualiza_obra();
+
     });
     $('#mv_grupo_id').change(function()
     {
@@ -597,6 +692,32 @@
     {
         atualiza_subcategoria();
 
+    });
+    $('#mv_obra_id').change(function()
+    {
+        alert('entrou em change');
+    });
+
+    $('#div_cadastro_empresa').on('shown.bs.modal', function() {
+        $('#empresa').trigger('focus');
+    });
+    $('#div_cadastro_conta').on('shown.bs.modal', function() {
+        $('#conta_descricao').trigger('focus');
+    });
+    $('#div_cadastro_grupo').on('shown.bs.modal', function() {
+        $('#grupo_grupo').trigger('focus');
+    });
+    $('#div_cadastro_categoria').on('shown.bs.modal', function() {
+        $('#categoria').trigger('focus');
+    });
+    $('#div_cadastro_subcategoria').on('shown.bs.modal', function() {
+        $('#subcategoria').trigger('focus');
+    });
+    $('#div_cadastro_obra').on('shown.bs.modal', function() {
+        $('#obra_descricao').trigger('focus');
+    });    
+    $('#div_cadastro_pessoa').on('shown.bs.modal', function() {
+        $('#pessoa_nome').trigger('focus');
     });
 
     // Picker Translations
@@ -637,18 +758,158 @@
         editable: true
 
     });
+    $(document).ready(function()
+    {
 
-    function validateDate(id) {
-        var RegExPattern = /^((((0?[1-9]|[12]\d|3[01])[\.\-\/](0?[13578]|1[02])      [\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|((0?[1-9]|[12]\d|30)[\.\-\/](0?[13456789]|1[012])[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|((0?[1-9]|1\d|2[0-8])[\.\-\/]0?2[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|(29[\.\-\/]0?2[\.\-\/]((1[6-9]|[2-9]\d)?(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)|00)))|(((0[1-9]|[12]\d|3[01])(0[13578]|1[02])((1[6-9]|[2-9]\d)?\d{2}))|((0[1-9]|[12]\d|30)(0[13456789]|1[012])((1[6-9]|[2-9]\d)?\d{2}))|((0[1-9]|1\d|2[0-8])02((1[6-9]|[2-9]\d)?\d{2}))|(2902((1[6-9]|[2-9]\d)?(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)|00))))$/;
-        if (!((id.value.match(RegExPattern)) && (id.value!=''))) {
-            alert('Data inválida.');
-            id.focus();
-        }
-    }
+        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        $('#datatables-movimentacao').DataTable({
+            processing: true,
+            serverSide: true,
+            searching: false,
+            pageLength: 10,
+            lengthChange: false,
+            language : {
+                    decimal: ",",
+                    thousands: ",",
+                    sEmptyTable: "Nenhum registro encontrado",
+                    sInfo: "Mostrando  _START_ até _END_ de _TOTAL_ Resultados",
+                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                    sInfoFiltered: "(Filtrados de MAX registros)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ".",
+                    sLengthMenu: "_MENU_ resultados por página",
+                    sLoadingRecords: "Carregando...",
+                    sProcessing: "Processando...",
+                    sZeroRecords: "Nenhum registro encontrado",
+                    sSearch: "",
+                    sSearchPlaceholder: "Digite a procura",
+                    oPaginate: {
+                        sNext: "Próximo",
+                        sPrevious: "Anterior",
+                        sFirst: "Primeiro",
+                        sLast: "Último"
+                    },
+                    oAria: {
+                        sSortAscending: ": Ordenar colunas de forma ascendente",
+                        sSortDescending: ": Ordenar colunas de forma descendente"
+                    }
+                },
 
-    $('#div_cadastro_categoria').on('shown.bs.modal', function() {
-        $('#categoria').trigger('focus');
+            ajax: "{{ url('movimentacao/lista') }}",
+            columns: [
+                { data: 'id', name: 'id'},
+                { data: 'emissao', name: 'data',visible: false},
+                { data: 'empresa.empresa', name: 'empresa'},
+                { data: 'conta.descricao', name: 'conta'},
+                { data: 'grupo.grupo', name: 'grupo'},
+                { data: 'categoria.categoria', name: 'categoria'},
+                { data: 'subcategoria.subcategoria', name: 'subcategoria',visible: false},
+                { data: 'vencimento', name: 'vencimento'},
+                { data: 'baixa', name: 'baixa'},
+                { data: 'valor', name: 'valor'},
+                { defaultContent: '<a href="" class="btn_del" >'+feather.icons['trash-2'].toSvg({ class: 'font-small-4' }) + '</a></div>'
+                }
+            ],
+            columnDefs: [
+                {
+                    targets: 1,
+                    //width: '42px',
+                        render: function (data, type, full, meta) {
+                        var $grupo = full['grupo'];
+                        const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+                        var data = new Date(full['emissao']);
+                        let dataFormatada = ((data.getDate() + " " + meses[(data.getMonth())] + " " + data.getFullYear()));
+                        return '<span class=" badge badge-pill badge-light-dark">'+ dataFormatada +'</span>';
+                        }
+                },
+
+
+                {
+                    targets: 6,
+                    width: '42px',
+                        //data: 'grupo.grupo', name: 'grupo'
+                        render: function (data, type, full, meta) {
+                            var $subcategoria = full['subcategoria'];
+                            if ( !$subcategoria ){
+                                return '<span class=" badge badge-pill badge-secondary"> Sem subcategoria </span>';
+                            }else{
+                                return  $subcategoria['subcategoria'] ;
+                            }
+                        }
+                },
+                {
+                    targets: 7,
+                    //width: '42px',
+                        render: function (data, type, full, meta) {
+                        var $grupo = full['grupo'];
+                        const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+                        var data = new Date(full['vencimento']);
+                        var data_baixa = new Date(full['baixa']);
+                        let dataFormatada = ((data.getDate() + " " + meses[(data.getMonth())] + " " + data.getFullYear()));
+
+                        if ( !full['baixa'] ){
+                            if(data > new Date()){
+                                return '<span class=" badge badge-glow badge-pill badge-success">'+ dataFormatada +'</span>';
+                            }else if(data === new Date()){
+                                return '<span class=" badge badge-glow badge-pill badge-warning">'+ dataFormatada +'</span>';
+                            }else{
+                                return '<span class=" badge badge-glow badge-pill badge-danger">'+ dataFormatada +'</span>';
+                            }
+                        }else{
+                            return '<span class=" badge badge-pill badge-light-dark">'+ dataFormatada +'</span>';
+                        }
+
+                        }
+                },
+                {
+                    targets: 8,
+                    //width: '42px',
+                        render: function (data, type, full, meta) {
+                        var $grupo = full['grupo'];
+                        const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+                        var data = new Date(full['baixa']);
+                        let dataFormatada = ((data.getDate() + " " + meses[(data.getMonth())] + " " + data.getFullYear()));
+                        if ( !full['baixa'] ){
+                            return '<span class=" badge badge-pill badge-light-secondary">em aberto</span>';
+                        }else{
+                            return '<span class=" badge badge-pill badge-light-dark">'+ dataFormatada +'</span>';
+                        }
+                        }
+                },
+
+
+                {
+                    targets: 9,
+                    //width: '42px',
+                        render: function (data, type, full, meta) {
+                        var $grupo = full['grupo'];
+                        //var $valor = full['valor'];
+                        var $valor = $.fn.dataTable.render.number('.', ',', 2, 'R$ ').display(full['valor'])
+                            if ( !$grupo ){
+                            return '<span class=" badge badge-pill badge-light-secondary"> sem tipo </span>';
+                            }
+                        if ($grupo['tipo']==='D') {
+                            return '<span class=" badge badge-pill badge-light-success">'+ $valor +'</span>';
+                        }else{
+                            return '<span class=" badge badge-pill badge-light-danger">'+ $valor +'</span>';
+                        }
+                        }
+                }
+            ],
+
+            order: [
+                [8, 'desc'],
+            ],
+        });
+        $('#datatables-movimentacao tbody').on('click', 'a.btn_del', function (e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+            var idconta = $('#datatables-movimentacao').DataTable().row( row ).data().id;
+            var descricao = $('#datatables-movimentacao').DataTable().row( row ).data().descricao;
+            apagar(idconta,descricao);
+            return;
+        });
+
     });
-
 
 </script>

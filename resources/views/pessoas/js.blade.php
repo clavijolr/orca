@@ -21,6 +21,63 @@
             return isnumber
         };
 
+        function editar(id) {
+            $('#tituloModalPessoa').text("Alterar pessoa");
+            $('#btn_criar_atualizar_pessoa').text('Alterar');
+
+
+            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                type: "post",
+                url: "{{ url('pessoa/editar/#registro') }}".replace('#registro',id),
+                data: "do=getInfo",
+                success: function(result) {
+                    $('#pessoa_id').val(result.id);
+                    $('#pessoa_nome').val(result.nome);
+                    $('#pessoa_razao').val(result.razao);
+                    $('#pessoa_cpfcnpj').val(result.cpfcnpj);
+                    $('#div_cadastro_pessoa').modal("show");
+                },
+                error: function(result) {
+                    console.log('falha editar');
+                }
+            });
+            return;
+        }
+
+        function criar() {
+            $('#pessoa_id').val('');
+            $('#pessoa_nome').val('');
+            $('#pessoa_razao').val('');
+            $('#pessoa_cpfcnpj').val('');
+            $('#tituloModalPessoa').text("Criar pessoa");
+            $('#btn_criar_atualizar_pessoa').text('Criar');
+            $('#div_cadastro_pessoa').modal("show");
+            return;
+        }
+
+        function apagar(id,pessoa) {
+            //alert('entrou no apagar');
+            if (confirm('Deseja apagar a conta '+pessoa+' realmente?')) {
+                $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+                $.ajax({
+                    type: "post",
+                    url: "{{ url('pessoa/apagar/#registro') }}".replace('#registro',id),
+                    data: "do=getInfo",
+                    cache: false,
+                    async: false,
+                    success: function(result) {
+                        //alert('sucesso');
+                        $('#datatables-pessoa').DataTable().ajax.reload();
+                    },
+                    error: function(result) {
+                        console.log('falha editar');
+                    }
+                });
+            }
+            return false;
+        };
+
         $(document).ready(function() {
             $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
             $('#datatables-pessoa').DataTable({
@@ -112,68 +169,9 @@
                 apagar(idpessoa,nome);
                 return;
             });
-            $('#div_cadastro_pessoa').on('shown.bs.modal', function() {
-                $('#pessoa_nome').trigger('focus');
-            });
 
         });
 
-        function editar(id) {
-            $('#tituloModalPessoa').text("Alterar pessoa");
-            $('#btn_criar_atualizar_pessoa').text('Alterar');
-
-
-            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-                type: "post",
-                url: "{{ url('pessoa/editar/#registro') }}".replace('#registro',id),
-                data: "do=getInfo",
-                success: function(result) {
-                    $('#pessoa_id').val(result.id);
-                    $('#pessoa_nome').val(result.nome);
-                    $('#pessoa_razao').val(result.razao);
-                    $('#pessoa_cpfcnpj').val(result.cpfcnpj);
-                    $('#div_cadastro_pessoa').modal("show");
-                },
-                error: function(result) {
-                    console.log('falha editar');
-                }
-            });
-            return;
-        }
-
-        function criar() {
-            $('#pessoa_id').val('');
-            $('#pessoa_nome').val('');
-            $('#pessoa_razao').val('');
-            $('#pessoa_cpfcnpj').val('');
-            $('#tituloModalPessoa').text("Criar pessoa");
-            $('#btn_criar_atualizar_pessoa').text('Criar');
-            $('#div_cadastro_pessoa').modal("show");
-            return;
-        }
-
-        function apagar(id,pessoa) {
-            //alert('entrou no apagar');
-            if (confirm('Deseja apagar a conta '+pessoa+' realmente?')) {
-                $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-                $.ajax({
-                    type: "post",
-                    url: "{{ url('pessoa/apagar/#registro') }}".replace('#registro',id),
-                    data: "do=getInfo",
-                    cache: false,
-                    async: false,
-                    success: function(result) {
-                        //alert('sucesso');
-                        $('#datatables-pessoa').DataTable().ajax.reload();
-                    },
-                    error: function(result) {
-                        console.log('falha editar');
-                    }
-                });
-            }
-            return false;
-        };
 
         $('#gravarPessoaForm').submit(function(event){
             event.preventDefault();
@@ -201,6 +199,10 @@
                 }
             });
 
+        });
+        
+        $('#div_cadastro_pessoa').on('shown.bs.modal', function() {
+            $('#pessoa_nome').trigger('focus');
         });
 
 

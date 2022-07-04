@@ -10,6 +10,76 @@
 
     <script type="text/javascript">
 
+
+
+        function editar(id) {
+            $('#tituloModalGrupo').text("Alterar grupo");
+            $('#btn_criar_atualizar_grupo').text('Alterar');
+
+            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                type: "post",
+                url: "{{ url('grupo/editar/#registro') }}".replace('#registro',id),
+                data: "do=getInfo",
+                success: function(result) {
+                    $('#grupo_id').val(result.id);
+                    $('#grupo_grupo').val(result.grupo);
+                    $('#grupo_tipo').val(result.tipo);
+                    $('#grupo_tipo_pessoa').val(result.tipo_pessoa);
+                    $('#cpfcnpj').val(result.cpfcnpj);
+                    $('#div_cadastro_grupo').modal("show");
+                },
+                error: function(result) {
+                    console.log('falha editar');
+                }
+            });
+            return;
+        }
+
+        function criar() {
+            $('#grupo_id').val('');
+            $('#grupo_grupo').val('');
+            $('#cpfcnpj').val('');
+            $('#grupo_tipo').val('');
+            $('#grupo_tipo_pessoa').val('');
+            $('#tituloModalGrupo').text("Criar grupo");
+            $('#btn_criar_atualizar_grupo').text('Criar');
+            $('#div_cadastro_grupo').modal("show");
+            return;
+        }
+
+
+        function apagar(id,grupo) {
+            if (confirm('Deseja apagar a conta ' + grupo + ' realmente?')) {
+                $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+                $.ajax({
+                    type: "post",
+                    url: "{{ url('grupo/apagar/#registro') }}".replace('#registro',id),
+                    data: "do=getInfo",
+                    cache: false,
+                    async: false,
+                    success: function(result) {
+                        $('#datatables-grupo').DataTable().ajax.reload();
+                    },
+                    error: function(result) {
+                        console.log('falha editar');
+                    }
+                });
+            }
+            return false;
+        };
+
+        var filtroTeclas = function(event) {
+            isnumber=((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 44));
+            if (event.charCode == 44) {
+                teste=event.target.value;
+                if (event.target.value.indexOf(",")>=-1) {
+                    isnumber=false;
+                }
+            }
+            return isnumber
+        };
+
         $(document).ready(function() {
             $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
             $('#datatables-grupo').DataTable({
@@ -64,8 +134,8 @@
                         render: function (data, type, full, meta) {
                             var $status_tipo = full['tipo'];
                             var $status = {
-                            'D': { title: 'Débito', class: 'badge-glow badge-success' },
-                            'C': { title: 'Crédito', class: 'badge-glow badge-danger' },
+                            'D': { title: 'Saida', class: 'badge-glow badge-danger' },
+                            'C': { title: 'Entrada', class: 'badge-glow badge-success' },
                             };
                             if (typeof $status[$status_tipo] === 'undefined') {
                             return data;
@@ -139,80 +209,9 @@
                 apagar(id,grupo);
                 return;
             });
-            $('#div_cadastro_grupo').on('shown.bs.modal', function() {
-                $('#grupo_grupo').trigger('focus');
-            });
 
 
         });
-
-        function editar(id) {
-            $('#tituloModalGrupo').text("Alterar grupo");
-            $('#btn_criar_atualizar_grupo').text('Alterar');
-
-            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-                type: "post",
-                url: "{{ url('grupo/editar/#registro') }}".replace('#registro',id),
-                data: "do=getInfo",
-                success: function(result) {
-                    $('#grupo_id').val(result.id);
-                    $('#grupo_grupo').val(result.grupo);
-                    $('#grupo_tipo').val(result.tipo);
-                    $('#grupo_tipo_pessoa').val(result.tipo_pessoa);
-                    $('#cpfcnpj').val(result.cpfcnpj);
-                    $('#div_cadastro_grupo').modal("show");
-                },
-                error: function(result) {
-                    console.log('falha editar');
-                }
-            });
-            return;
-        }
-
-        function criar() {
-            $('#grupo_id').val('');
-            $('#grupo_grupo').val('');
-            $('#cpfcnpj').val('');
-            $('#grupo_tipo').val('');
-            $('#grupo_tipo_pessoa').val('');
-            $('#tituloModalGrupo').text("Criar grupo");
-            $('#btn_criar_atualizar_grupo').text('Criar');
-            $('#div_cadastro_grupo').modal("show");
-            return;
-        }
-
-
-        function apagar(id,grupo) {
-            if (confirm('Deseja apagar a conta ' + grupo + ' realmente?')) {
-                $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-                $.ajax({
-                    type: "post",
-                    url: "{{ url('grupo/apagar/#registro') }}".replace('#registro',id),
-                    data: "do=getInfo",
-                    cache: false,
-                    async: false,
-                    success: function(result) {
-                        $('#datatables-grupo').DataTable().ajax.reload();
-                    },
-                    error: function(result) {
-                        console.log('falha editar');
-                    }
-                });
-            }
-            return false;
-        };
-
-        var filtroTeclas = function(event) {
-            isnumber=((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 44));
-            if (event.charCode == 44) {
-                teste=event.target.value;
-                if (event.target.value.indexOf(",")>=-1) {
-                    isnumber=false;
-                }
-            }
-            return isnumber
-        };
 
         $('#gravarGrupoForm').submit(function(event){
             event.preventDefault();
@@ -242,4 +241,9 @@
             });
 
         });
+
+        $('#div_cadastro_grupo').on('shown.bs.modal', function() {
+            $('#grupo_grupo').trigger('focus');
+        });
+
     </script>

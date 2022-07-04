@@ -12,6 +12,72 @@
 
 <script>
 
+    function criar() {
+        $('#empresa_id').val('');
+        $('#empresa').val('');
+        $('#cpfcnpj').val('');
+        $('#empresa_tipo_pessoa').val("");
+        $("#empreiteira").prop('checked', false);
+
+        $('#tituloModalEmpresa').text("Criar entidade");
+        $('#btn_criar_atualizar_empresa').text('Criar');
+        $('#div_cadastro_empresa').modal("show");
+        return;
+    }
+    function editar(id) {
+        $('#tituloModalEmpresa').text("Alterar entidade");
+        $('#btn_criar_atualizar_empresa').text('Alterar');
+
+        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        $.ajax({
+            type: "post",
+            url: "{{ url('empresa/editar/#registro') }}".replace('#registro',id),
+            data: "do=getInfo",
+            success: function(result) {
+                $('#empresa_id').val(result.id);
+                $('#empresa').val(result.empresa);
+                $('#cpfcnpj').val(result.cpfcnpj);
+                $("#empreiteira").prop('checked', result.empreiteira);
+                $('#empresa_tipo_pessoa').val(result.tipo_pessoa);
+                $('#div_cadastro_empresa').modal("show");
+            },
+            error: function(result) {
+                console.log('falha editar');
+            }
+        });
+        return;
+    }
+
+
+    function apagar(id,empresa) {
+        if (confirm('Deseja apagar a conta '+empresa+' realmente?')) {
+            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                type: "post",
+                url: "{{ url('empresa/apagar/#registro') }}".replace('#registro',id),
+                data: "do=getInfo",
+                success: function(result) {
+                    $('#datatables-empresa').DataTable().ajax.reload();
+                },
+                error: function(result) {
+                    console.log('falha editar');
+                }
+            });
+        }
+        return false;
+    };
+
+    var filtroTeclaDocumento = function(event) {
+        isnumber=((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 44));
+        if (event.charCode == 44) {
+            teste=event.target.value;
+            if (event.target.value.indexOf(",")>=-1) {
+                isnumber=false;
+            }
+        }
+        return isnumber
+    };
+
     $(document).ready(function() {
         $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $('#datatables-empresa').DataTable({
@@ -47,28 +113,66 @@
 
             ajax: "{{ url('empresas') }}",
             columns: [
-                { data: 'id', name: 'id',visible: false},
-                { data: 'empresa', name: 'entidade'},
+                { data: 'id', name: 'id'},
+                { data: 'empresa', name: 'empresa'},
                 { data: 'cpfcnpj', name: 'cpfcnpj'},
-                {
-                    render: function (data, type, full, meta) {
-                        var $tipo_pessoa = full['tipo_pessoa'];
-                        if ($tipo_pessoa === "J") {
-                            return '<span class=" badge badge-pill badge-glow badge-secondary">Jurídica</span>';
-                        }else if ($tipo_pessoa === "A"){
-                            return '<span class=" badge badge-pill badge-glow badge-secondary">Física</span> <span class=" badge badge-pill badge-glow badge-secondary">Jurídica</span>';
-                        }else{
-                            return '<span class=" badge badge-pill badge-glow badge-secondary">Física</span>';
-
-                        }
-                    }
-            },
-
+                {},
+                { data: 'empreiteira', name: 'empreiteira'},
                 { defaultContent: '<div><a href="" class="btn_edit" >'+feather.icons['edit'].toSvg({ class: 'font-small-4' }) + ' </a>' +
                                     '<a href="" class="btn_del" >'+feather.icons['trash-2'].toSvg({ class: 'font-small-4' }) + '</a></div>'
                 }
 
             ],
+                columnDefs: [
+                    {
+                        targets: 0,
+                        width: "4%",
+                    },                    
+                    {
+                        targets: 1,
+                        width: "50%",
+                    },
+
+                    {
+                        targets: 2,
+                        width: "20%",
+                        render: function (data, type, full, meta) {
+                            let cpfcnpj = full['cpfcnpj'];
+                            return '<span class=" badge badge-pill badge-light-dark">'+ cpfcnpj +'</span>';
+                        }
+                    },
+                    {
+                        targets: 3,
+                        width: "10%",
+                        render: function (data, type, full, meta) {
+                            var $tipo_pessoa = full['tipo_pessoa'];
+                            if ($tipo_pessoa === "J") {
+                                return '<span class=" badge badge-pill badge-glow badge-secondary">Jurídica</span>';
+                            }else if ($tipo_pessoa === "A"){
+                                return '<span class=" badge badge-pill badge-glow badge-secondary">Física</span> <span class=" badge badge-pill badge-glow badge-secondary">Jurídica</span>';
+                            }else{
+                                return '<span class=" badge badge-pill badge-glow badge-secondary">Física</span>';
+                            }
+                        }
+                    },
+                    {
+                        targets: 4,
+                        width: "6%",
+                        render: function (data, type, full, meta) {
+                            if (full['empreiteira'] === 1) {
+                                return '<span class="badge badge-pill badge-glow badge-secondary">Sim</span>';
+                            }else{
+                                return '<span class=" badge badge-pill badge-light-dark">Não</span>';
+                            }
+                        }
+                    },
+
+                    {
+                        targets: 5,
+                        width: "10%",
+
+                    },
+                ],            
             order: [
                 [0, 'desc'],
 
@@ -113,12 +217,8 @@
             apagar(idempresa,empresa);
             return;
         });
-        $('#div_cadastro_empresa').on('shown.bs.modal', function() {
-            $('#empresa').trigger('focus');
-        });
-
-
     });
+
 
     $('#gravarEmpresaForm').submit(function(event){
         event.preventDefault();
@@ -127,6 +227,7 @@
         }else{
             id=$('#empresa_id').val();
         }
+        alert($(this).serialize());
 
         $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $.ajax({
@@ -135,11 +236,12 @@
             data: $(this).serialize(),
             dataType:'json',
             success: function(result) {
+
                 $('#empresa_id').val('');
                 $('#empresa').val('');
                 $('#cpfcnpj').val('');
                 $('#empresa_tipo_pessoa').val("");
-
+                $( "#empreiteira").prop('checked', false);
                 $('#datatables-empresa').DataTable().ajax.reload();
                 $('#div_cadastro_empresa').modal("hide");
             },
@@ -149,75 +251,8 @@
         });
     });
 
-    function editar(id) {
-        $('#tituloModalEmpresa').text("Alterar empresa");
-        $('#btn_criar_atualizar_empresa').text('Alterar');
-
-        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-        $.ajax({
-            type: "post",
-            url: "{{ url('empresa/editar/#registro') }}".replace('#registro',id),
-            data: "do=getInfo",
-            success: function(result) {
-                $('#empresa_id').val(result.id);
-                $('#empresa').val(result.empresa);
-                $('#cpfcnpj').val(result.cpfcnpj);
-                $('#empresa_tipo_pessoa').val(result.tipo_pessoa);
-                $('#div_cadastro_empresa').modal("show");
-            },
-            error: function(result) {
-                console.log('falha editar');
-            }
-        });
-        return;
-    }
-
-    function criar() {
-        $('#empresa_id').val('');
-        $('#empresa').val('');
-        $('#cpfcnpj').val('');
-        $('#empresa_tipo_pessoa').val("");
-        $('#tituloModalEmpresa').text("Criar entidade");
-        $('#btn_criar_atualizar_empresa').text('Criar');
-        $('#div_cadastro_empresa').modal("show");
-        return;
-    }
-
-    function apagar(id,empresa) {
-        if (confirm('Deseja apagar a conta '+empresa+' realmente?')) {
-            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-                type: "post",
-                url: "{{ url('empresa/apagar/#registro') }}".replace('#registro',id),
-                data: "do=getInfo",
-                success: function(result) {
-                    $('#datatables-empresa').DataTable().ajax.reload();
-                },
-                error: function(result) {
-                    console.log('falha editar');
-                }
-            });
-        }
-        return false;
-    };
-
-    var filtroTeclaDocumento = function(event) {
-        isnumber=((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 44));
-        if (event.charCode == 44) {
-            teste=event.target.value;
-            if (event.target.value.indexOf(",")>=-1) {
-                isnumber=false;
-            }
-        }
-        return isnumber
-    };
-
-    $( "#gravarEmpresaForm input[type='checkbox']" ).on( "click", function(){
-        if ($(this).prop('checked')){
-            $(this).attr('value', 1);
-        } else {
-            $(this).attr('value', 0);
-        }
+    $('#div_cadastro_empresa').on('shown.bs.modal', function() {
+        $('#empresa').trigger('focus');
     });
 
 </script>

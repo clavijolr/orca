@@ -11,10 +11,18 @@ class Grupo extends Model
         protected $fillable = [
                         'grupo',
                         'tipo',
+                        'empreiteira',
+                        'tipo_pessoa',
     ];
     public function categorias()
     {
         return $this->hasMany(Categoria::class);
 
-    }    
+    }
+    public function movimentacoes()
+    {
+        return $this->hasMany(Movimentacao::class);
+    }
+
+
 }

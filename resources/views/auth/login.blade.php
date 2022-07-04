@@ -6,9 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="author" content="Luis Roberto Guedes Clavijo">
+    <meta name="author" content="L R G C">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>{{ config('app.name', 'ORCA') }}</title>
+    <title>{{ config('app.name', 'CFM') }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo/favicon.ico')}}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
@@ -64,13 +64,13 @@
                                     </g>
                                 </g>
                             </svg>
-                            <h2 class="brand-text text-primary ml-1">ORCA</h2>
+                            <h2 class="brand-text text-primary ml-1">CFM</h2>
                         </a>
                         <!-- /Brand logo-->
                         <!-- Left Text-->
                         <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
                             <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
-                                <img class="img-fluid" src="{{asset('images/pages/login-v2.svg')}}" alt="Login ORCA" />
+                                <img class="img-fluid" src="{{asset('images/pages/login-v2.svg')}}" alt="Login CFM" />
 
                             </div>
                         </div>
@@ -78,8 +78,8 @@
                         <!-- Login-->
                         <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-                                <h2 class="card-title font-weight-bold mb-1">ORCA</h2>
-                                <h4 class="card-title font-weight-bold mb-1">Seu Orçamento familiar de maneira facil</h4>
+                                <h2 class="card-title font-weight-bold mb-1">Bem vindo ao</h2>
+                                <h4 class="card-title font-weight-bold mb-1">Gerenciador de Fluxo de Caixa</h4>
 
                                 <p class="card-text mb-2">Entre com seus dados para acessar</p>
 

@@ -138,41 +138,10 @@
 
                 ajax: "{{ url('categorias') }}",
                 columns: [
-                    { data: 'id', name: 'id',visible: false },
-                    {
-                            width: '42px',
-                         render: function (data, type, full, meta) {
-                            var $grupo = full['grupo'];
-
-                            //return '<span class=" badge badge-pill  badge-secondary">'+ $grupo['tipo_pessoa']+' </span>';
-                            if ($grupo['tipo_pessoa'] === "J") {
-                                return '<span class=" badge   badge-light-secondary">Jurídica</span>';
-                            }else if ($grupo['tipo_pessoa'] === "A"){
-                                return '<span class=" badge   badge-light-secondary">Física</span> <span class=" badge  badge-light-secondary">Jurídica</span>';
-                            }else{
-                                return '<span class=" badge   badge-light-secondary">Física</span>';
-                            }
-                         }
-                    },
-
-                    {
-                        //data: 'grupo.grupo', name: 'grupo'
-                         render: function (data, type, full, meta) {
-                            var $grupo = full['grupo'];
-                             if ( !$grupo ){
-                                return '<span class=" badge  badge-light-secondary"> sem tipo </span>';
-                             }
-                            if ($grupo['tipo']==='D') {
-                                return '<span class=" badge   badge-light-success">'+ $grupo['grupo'] +'</span>';
-                            }else{
-                                return '<span class=" badge   badge-light-danger">'+ $grupo['grupo'] +'</span>';
-                            }
-
-                         }
-                    },
-
+                    { data: 'id', name: 'id' },
+                    { data: 'grupo.grupo', name: 'grupo'},
                     { data: 'categoria', name: 'categoria'},
-
+                    { data: 'grupo.tipo_pessoa', name: 'tipo_pessoa'},
 
                     { defaultContent: '<div><a href="" class="btn_edit" >'+feather.icons['edit'].toSvg({ class: 'font-small-4' }) + ' </a>' +
                                       '<a href="" class="btn_del" >'+feather.icons['trash-2'].toSvg({ class: 'font-small-4' }) + '</a></div>'

@@ -11,6 +11,12 @@ class Empresa extends Model
     protected $fillable = [
                 'empresa',
                 'cpfcnpj',
+                'empreiteira',
+                'tipo_pessoa',
     ];
+    public function movimentacoes()
+    {
+        return $this->hasMany(Movimentacao::class);
+    }
 
 }

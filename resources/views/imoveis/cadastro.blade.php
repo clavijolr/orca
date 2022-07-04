@@ -4,7 +4,7 @@
         <form  class=" modal-content pt-0" name="gravarObraForm" id="gravarObraForm"  >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
             <div class="modal-header mb-1">
-                <h5 class="modal-title" id="tituloModalObra">Nova Obra</h5>
+                <h5 class="modal-title" id="tituloModalObra">Novo Imovel</h5>
              </div>
             <div class="modal-body flex-grow-1 ">
 
@@ -16,12 +16,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="descricao">Nome da obra</label>
+                    <label class="form-label" for="imovel_descricao">Nome do imovel</label>
                     <input type="text"
                         class="form-control "
-                        id="obra_descricao"
-                        name="obra_descricao"
-                        placeholder="Digite nome da obra "
+                        id="imovel_descricao"
+                        name="imovel_descricao"
+                        placeholder="Digite nome do imovel "
                         autocomplete="off"
                         tabindex="1"
                         required
@@ -30,31 +30,19 @@
                     />
                 </div>
                 <div class="form-group">
-                    <label for="obra_data_inicio">Escolha uma data par o Inicio da obra </label>
-                    <input  type="text" 
-                    autocomplete="off"
-                    tabindex="1"
-                    id="obra_data_inicio"
-                    name="obra_data_inicio"
-                    placeholder="Escolha a data" 
-                    data-input> 
-                    <a class="input-button" title="clear" data-clear>
-                        <i class="icon-close"></i>
-                    </a>
-                </div>
-
-
-                <div class="form-group ">
-                    <label for="obra_data_fim">Escolha uma data par o fim da obra </label>
+                    <label class="form-label" for="imovel_endereco">Endereco do imovel</label>
                     <input type="text"
-                            class="form-control flatpickr-basic"
-                            id="obra_data_fim"
-                            name="obra_data_fim"
-                            autocomplete="off"
-                            tabindex="3"
-                            placeholder="Escolha a data" />
+                        class="form-control "
+                        id="imovel_endereco"
+                        name="imovel_endereco"
+                        placeholder="Digite nome do imovel "
+                        autocomplete="off"
+                        tabindex="1"
+                        required
+                        maxlength="55"
+                        data-input
+                    />
                 </div>
-
                 <hr>
                 <button type="submit" class="btn btn-primary mr-1 data-submit" name="btn_criar_atualizar_obra" id="btn_criar_atualizar_obra"  >
                     Atualizar

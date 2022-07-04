@@ -9,6 +9,96 @@
 
 
     <script type="text/javascript">
+        function criar() 
+        {
+            atualiza_categoria();
+            $('#subcategoria_id').val('');
+            $('#subcategoria_categoria_id').val('');
+            $('#subcategoria').val('');
+            $('#tituloModalSubcategoria').text("Criar subcategoria");
+            $('#btn_criar_atualizar_subcategoria').text('Criar');
+            $('#div_cadastro_subcategoria').modal("show");
+            return;
+        }
+        function editar(id) 
+        {
+            $('#tituloModalSubcategoria').text("Alterar subcategoria");
+            $('#btn_criar_atualizar_subcategoria').text('Alterar');
+            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                type: "post",
+                url: "{{ url('subcategoria/editar/#registro') }}".replace('#registro',id),
+                data: "do=getInfo",
+                success: function(result) {
+
+                    $('#subcategoria_id').val(result.id);
+                    $('#subcategoria').val(result.subcategoria);
+                    atualiza_categoria(result.categoria_id);
+                    $('#subcategoria_categoria_id').val(result.categoria_id);
+                    $('#div_cadastro_subcategoria').modal("show");
+                },
+                error: function(result) {
+                    console.log('falha editar');
+                }
+            });
+            return;
+        }
+        function apagar(id,subcategoria) 
+        {
+            //alert('entrou no apagar');
+            if (confirm('Deseja apagar a conta '+subcategoria+' realmente?')) {
+                $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+                $.ajax({
+                    type: "post",
+                    url: "{{ url('subcategoria/apagar/#registro') }}".replace('#registro',id),
+                    data: "do=getInfo",
+                    cache: false,
+                    async: false,
+                    success: function(result) {
+                        //alert('sucesso');
+                        $('#datatables-subcategoria').DataTable().ajax.reload();
+                    },
+                    error: function(result) {
+                        console.log('falha apagar');
+                    }
+                });
+            }
+            return false;
+        };
+        function atualiza_categoria(categoria_id_atual='')
+        {
+            $("#subcategoria_categoria_id").empty();
+            var option = "<option value='' disabled hidden>Escolha uma categoria</option>";
+            $("#subcategoria_categoria_id").append(option);
+
+            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+            $.ajax({
+                url: "{{ url('subcategoria/categorias') }}",
+                type: "post",
+                dataType:'json',
+                success: function(result) {
+                    var len = 0;
+                    if (result.categorias != null) {
+                        len = result.categorias.length;
+                    }
+                    if (len>0) {
+                        var optionteste ='';
+                        for (var i = 0; i<len; i++) {
+                            var id = result.categorias[i].id;
+                            var categoria = result.categorias[i].categoria;
+                            var option = "<option value='" + id + (categoria_id_atual === id ? "' selected >" : "'>")+  categoria + "</option>";
+                            optionteste += option +'\n';
+                            $("#subcategoria_categoria_id").append(option);
+                        }
+
+                    }
+                },
+                error: function(result) {
+
+                }
+            });
+
+        };
         $(document).ready(function() {
             $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
             $('#datatables-subcategoria').DataTable({
@@ -81,7 +171,6 @@
                     }
                 ]
             });
-
             $('#datatables-subcategoria tbody').on('click', 'a.btn_edit', function (e) {
                 e.preventDefault();
                 var row = $(this).closest('tr');
@@ -100,12 +189,7 @@
                 apagar(idsubcategoria,subcategoria);
                 return;
             });
-            $('#div_cadastro_subcategoria').on('shown.bs.modal', function() {
-                $('#subcategoria').trigger('focus');
-            });
-
         });
-
         $('#gravarSubcategoriaForm').submit(function(event){
             event.preventDefault();
                     //alert( $(this).serialize());
@@ -136,98 +220,8 @@
 
         });
 
-
-        function editar(id) {
-            $('#tituloModalSubcategoria').text("Alterar subcategoria");
-            $('#btn_criar_atualizar_subcategoria').text('Alterar');
-            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-                type: "post",
-                url: "{{ url('subcategoria/editar/#registro') }}".replace('#registro',id),
-                data: "do=getInfo",
-                success: function(result) {
-
-                    $('#subcategoria_id').val(result.id);
-                    $('#subcategoria').val(result.subcategoria);
-                    atualiza_categoria(result.categoria_id);
-                    $('#subcategoria_categoria_id').val(result.categoria_id);
-                    $('#div_cadastro_subcategoria').modal("show");
-                },
-                error: function(result) {
-                    console.log('falha editar');
-                }
-            });
-
-            return;
-        }
-
-        function criar() {
-            atualiza_categoria();
-            $('#subcategoria_id').val('');
-            $('#subcategoria_categoria_id').val('');
-            $('#subcategoria').val('');
-            $('#tituloModalSubcategoria').text("Criar subcategoria");
-            $('#btn_criar_atualizar_subcategoria').text('Criar');
-            $('#div_cadastro_subcategoria').modal("show");
-            return;
-        }
-
-        function apagar(id,subcategoria) {
-            //alert('entrou no apagar');
-            if (confirm('Deseja apagar a conta '+subcategoria+' realmente?')) {
-                $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-                $.ajax({
-                    type: "post",
-                    url: "{{ url('subcategoria/apagar/#registro') }}".replace('#registro',id),
-                    data: "do=getInfo",
-                    cache: false,
-                    async: false,
-                    success: function(result) {
-                        //alert('sucesso');
-                        $('#datatables-subcategoria').DataTable().ajax.reload();
-                    },
-                    error: function(result) {
-                        console.log('falha apagar');
-                    }
-                });
-            }
-            return false;
-        };
-
-
-        function atualiza_categoria(categoria_id_atual='')
-        {
-            $("#subcategoria_categoria_id").empty();
-            var option = "<option value='' disabled hidden>Escolha uma categoria</option>";
-            $("#subcategoria_categoria_id").append(option);
-
-            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-                url: "{{ url('subcategoria/categorias') }}",
-                type: "post",
-                dataType:'json',
-                success: function(result) {
-                    var len = 0;
-                    if (result.categorias != null) {
-                        len = result.categorias.length;
-                    }
-                    if (len>0) {
-                        var optionteste ='';
-                        for (var i = 0; i<len; i++) {
-                            var id = result.categorias[i].id;
-                            var categoria = result.categorias[i].categoria;
-                            var option = "<option value='" + id + (categoria_id_atual === id ? "' selected >" : "'>")+  categoria + "</option>";
-                            optionteste += option +'\n';
-                            $("#subcategoria_categoria_id").append(option);
-                        }
-
-                    }
-                },
-                error: function(result) {
-
-                }
-            });
-
-        };
+        $('#div_cadastro_subcategoria').on('shown.bs.modal', function() {
+            $('#subcategoria').trigger('focus');
+        });
 
     </script>

@@ -20,9 +20,9 @@
                         class="form-control "
                         id="empresa"
                         name="empresa"
-                        placeholder="Digite o nome da Entidade"
-                        aria-label="Empresa"
-                        aria-describedby="Nome da entidade"
+                        placeholder="Digite o nome da empresa"
+                        aria-label="Entidade"
+                        aria-describedby="Nome da empresa"
                         maxlength="30"
                         autocomplete="off"
                         required
@@ -43,9 +43,9 @@
                         required
                     />
                 </div>
-                <hr>
+                <hr>       
                 <div class="form-group">
-                    <label for="empresa_tipo_pessoa">Escolha a clasificação da Entidade</label>
+                    <label for="empresa_tipo_pessoa">Escolha a clasificação da empresa</label>
                     <select class="form-control"
                             name='empresa_tipo_pessoa'
                             id="empresa_tipo_pessoa"
@@ -54,19 +54,28 @@
                         <option value="" selected disabled hidden>Escolha uma clasificação</option>
                         <option value='F'> Física</option>
                         <option value='J'> Jurídica</option>
-                        <option value='A'> Física e Jurídica</option>
+                        {{-- <option value='A'> Física e Jurídica</option> --}}
                     </select>
                 </div>
-
+                <div class="form-group">
+                    <div class="d-flex justify-content-between py-1">
+                        <label class="invoice-terms-title mb-0" for="clientNotes">Cadastro detalhado</label>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="empreiteira" name="empreiteira" />
+                            <label class="custom-control-label" for="empreiteira"></label>
+                        </div>
+                    </div>
+                </div>
 
                 <hr>
-                <button type="submit" class="btn btn-primary mr-1 data-submit" name="btn_criar_atualizar_empresa" id="btn_criar_atualizar_empresa"  >
-                    Atualizar
-                </button>
-
-                <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">
-                    Cancelar
-                </button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary mr-1 data-submit" name="btn_criar_atualizar_empresa" id="btn_criar_atualizar_empresa"  >
+                        Atualizar
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal">
+                        Cancelar
+                    </button>
+                </div>
             </div>
         </form>
     </div>

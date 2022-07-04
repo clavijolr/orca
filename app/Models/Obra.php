@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Conta extends Model
+class Obra extends Model
 {
     use HasFactory;
     protected $fillable = [
                 'descricao',
-                'agencia',
-                'conta',
-                'tipo',
-                'saldo',
+                'data_inicio',
+                'data_fim',
+                'saldo_final',
     ];
 
     public function movimentacoes()

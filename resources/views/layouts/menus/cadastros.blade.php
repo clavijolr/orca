@@ -1,7 +1,7 @@
 
         {{-- <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="" data-toggle="dropdown" data-i18n="Usuarios"><i data-feather="users"></i><span data-i18n="Usuarios">Usuarios</span></a></li> --}}
         <div class="dropdown-divider"></div>
-        <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('empresas')}}" data-toggle="dropdown" data-i18n="Empresas"><i data-feather="anchor"></i><span data-i18n="Empresas">Entidade</span></a></li>
+        <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('empresas')}}" data-toggle="dropdown" data-i18n="Entidades"><i data-feather="anchor"></i><span data-i18n="Entidades">Entidades</span></a></li>
         <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('contas')}}" data-toggle="dropdown" data-i18n="Contas"><i data-feather="credit-card"></i><span data-i18n="Contas">Contas</span></a></li>
         <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('grupos')}}" data-toggle="dropdown" data-i18n="Grupo"><i data-feather="package"></i><span data-i18n="Grupos">Grupos</span></a></li>
         <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('categorias')}}" data-toggle="dropdown" data-i18n="Categorias"><i data-feather="tag"></i><span data-i18n="Categorias">Categorias</span></a></li>

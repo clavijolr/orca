@@ -14,6 +14,7 @@
         @include('movimentacoes.css')
     @endsection
 
+    @include('movimentacoes.teste')
 
     @section('conteudo')
 
@@ -33,8 +34,8 @@
                                     required pattern="(^[0][1-9]|^[1-2][0-9]|^[3][0-1]|^[1-9])[\s](\bJaneiro\b|\bFevereiro\b|\bMarço\b|\bAbril\b|\bMaio\b|\bJunho\b|\bJulho\b|\bAgosto\b|\bSetembro\b|\bOutubro\b|\bNovembro\b|\bDezembro\b)[,]{1}[\s][2][0][2-9][0-9]"
                                     tabindex="1"
                                     />
-                                </div>
                             </div>
+                        </div>
                         <div class="col-md-3 col-12">
                             <div div class="form-group ">
                                 <label  for="mv_vencimento">Escolha uma data de vencimento </label>
@@ -66,18 +67,35 @@
                         </div>
                     </div>
                     <div class="divider divider-dotted  divider-primary">
-                        <div class="divider-text"> Dados da movimentação</div>
+                        <div class="divider-text">Dados da movimentação</div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-3 col-12">
+                            <div class="form-group ">
+                                <label for="mv_conta_id">Escolha uma conta</label>
+                                <div class="input-group">
+                                    <select class="form-control "
+                                        name="mv_conta_id"
+                                        id="mv_conta_id"
+                                        tabindex="4"
+                                        required>
+                                        <option value="" selected disabled hidden>Escolha uma conta</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sm btn-secondary" name="btn_conta" id="btn_conta" type="button">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="col-md-3 col-12">
                             <div class="form-group">
                                 <label  for="mv_conta_id">Escolha uma empresa</label>
                                 <div class="input-group">
                                     <select class="form-control "
                                         name="mv_empresa_id"
                                         id="mv_empresa_id"
-                                        tabindex="4"
+                                        tabindex="5"
                                         required>
                                         <option value="" selected disabled hidden>Escolha uma empresa</option>
                                     </select>
@@ -87,25 +105,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="form-group ">
-                                <label for="mv_conta_id">Escolha uma conta</label>
-                                <div class="input-group">
-                                    <select class="form-control "
-                                        name="mv_conta_id"
-                                        id="mv_conta_id"
-                                        tabindex="5"
-                                        required>
-                                        <option value="" selected disabled hidden>Escolha uma conta</option>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-sm btn-secondary" name="btn_conta" id="btn_conta" type="button">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <div class="form-group input-group">
                                 <label for="mv_conta_id">Escolha um grupo</label>
                                 <div class="input-group">
                                     <select class="form-control "
@@ -121,8 +122,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-12">
-                            <div class="form-group input-group">
+                        <div class="col-md-3 col-12">
+                            <div class="form-group ">
                                 <label for="mv_categoria_id">Escolha uma Categoria</label>
                                 <div class="form-group input-group">
                                     <select class="form-control "
@@ -138,16 +139,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-12"   >
+                        <div class="col-md-3 col-12"   >
                             <div class="form-group">
                                 <label for="mv_subcategoria_id">Escolha uma SubCategoria</label>
                                 <div class="input-group">
                                     <select class="form-control "
                                         name="mv_subcategoria_id"
                                         id="mv_subcategoria_id"
+                                        disabled="disabled"
                                         tabindex="9"
                                         >
-                                        <option value="" selected disabled hidden>Escolha uma subcategria</option>
+                                        <option value="" selected disabled hidden>Escolha uma subcategoria</option>
                                     </select>
                                     <div class="input-group-append">
                                         <button class="btn btn-sm btn-secondary" name="btn_subcategoria" id="btn_subcategoria" type="button">+</button>
@@ -155,14 +157,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-3 col-12">
+                            <div class="form-group ">
+                                <label for="mv_obra_id">Escolha uma obra para este lançamento</label>
+                                <div class="input-group">
+                                    <select class="form-control "
+                                        name="mv_obra_id"
+                                        id="mv_obra_id"
+                                        disabled="disabled"
+                                        tabindex="10"
+                                        required>
+                                        <option value="" selected disabled hidden>Escolha uma obra </option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sm btn-secondary" name="btn_obra" id="btn_obra" type="button">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12">
                             <div class="form-group ">
                                 <label for="mv_pessoa_id">Escolha a entidade destino do lançamento</label>
                                 <div class="input-group">
                                     <select class="form-control "
                                         name="mv_pessoa_id"
                                         id="mv_pessoa_id"
-                                        tabindex="10"
+                                        tabindex="11"
                                         required>
                                         <option value="" selected disabled hidden>Movimentação para ... </option>
                                     </select>
@@ -192,7 +212,6 @@
                         </div>
                         <div class="col-md-1 col-12">
                         </div>
-
                         <div class="col-md-3 col-12">
                             <div class="form-group">
                                 <input
@@ -208,7 +227,6 @@
                                 />
                             </div>
                         </div>
-
                         <div class="form-group hidden">
                             <input
                                 type="text"
@@ -222,18 +240,46 @@
                     <hr>
                     <div class="row ">
                         <div class="col-12 ">
-                            <button type="submit" tabindex="13"class="btn btn-sm  col-md-1 btn-outline-success float-right ">Lançar</button>
-                            <button type="reset" tabindex="14"class="btn btn-sm   col-md-1 btn-outline-secondary float-right mr-1">Cancelar</button>
+                            <button type="submit" tabindex="13" class="btn btn-sm  col-md-1 btn-outline-success float-right ">Lançar</button>
+                            <button type="reset"  tabindex="14" class="btn btn-sm   col-md-1 btn-outline-secondary float-right mr-1">Cancelar</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+    <div class="card">
+        <div class="card-body">
+            <div  class="card-datatable table-responsive pt-0">
+                <div class="card-body">
+                    <table  class="table table-bordered" id="datatables-movimentacao" name='datatables-movimentacao'>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Emissão</th>
+                                <th>Empresa</th>
+                                <th>Conta</th>
+                                <th>Grupo</th>
+                                <th>Categoria</th>
+                                <th>Subcategoria</th>
+                                <th>Vencimento</th>
+                                <th>Baixa</th>
+                                <th>Valor</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
         @include('empresas.cadastro')
         @include('contas.cadastro')
         @include('grupos.cadastro')
         @include('categorias.cadastro')
         @include('subcategorias.cadastro')
+        @include('obras.cadastro')
         @include('pessoas.cadastro')
     @endsection
 

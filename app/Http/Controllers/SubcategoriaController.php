@@ -20,7 +20,7 @@ class SubcategoriaController extends Controller
             return datatables()->of(Subcategoria::with('categoria')->get())->make(true);
         }
 
-        $titulo='ORCA - Subcategoria';
+        $titulo='CFM - Subcategoria';
 
         //dd($categorias[1]->grupo->tipo);
 

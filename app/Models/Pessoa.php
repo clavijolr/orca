@@ -10,6 +10,13 @@ class Pessoa extends Model
     use HasFactory;
     protected $fillable = [
                         'nome',
+                        'razao',
                         'cpfcnpj',
-    ];    
+    ];
+    public function movimentacoes()
+    {
+        return $this->hasMany(Movimentacao::class);
+    }
+
+
 }
