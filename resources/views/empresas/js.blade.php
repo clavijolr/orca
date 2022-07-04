@@ -48,7 +48,7 @@
             ajax: "{{ url('empresas') }}",
             columns: [
                 { data: 'id', name: 'id',visible: false},
-                { data: 'empresa', name: 'empresa'},
+                { data: 'empresa', name: 'entidade'},
                 { data: 'cpfcnpj', name: 'cpfcnpj'},
                 {
                     render: function (data, type, full, meta) {
@@ -177,7 +177,7 @@
         $('#empresa').val('');
         $('#cpfcnpj').val('');
         $('#empresa_tipo_pessoa').val("");
-        $('#tituloModalEmpresa').text("Criar empresa");
+        $('#tituloModalEmpresa').text("Criar entidade");
         $('#btn_criar_atualizar_empresa').text('Criar');
         $('#div_cadastro_empresa').modal("show");
         return;
