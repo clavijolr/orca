@@ -29,7 +29,7 @@
                                     </g>
                                 </svg>
                             </span>
-                            <h2 class="mb-0 brand-text">CFM</h2>
+                            <h2 class="mb-0 brand-text">ORCA</h2>
                         </a></li>
                     <li class="nav-item nav-toggle"><a class="pr-0 nav-link modern-nav-toggle" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i></a></li>
                 </ul>
