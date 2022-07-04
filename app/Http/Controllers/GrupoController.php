@@ -15,7 +15,7 @@ class GrupoController extends Controller
 
     public function index()
     {
-        $titulo='CFM - Cadastro de Grupos';
+        $titulo='ORCA - Cadastro de Grupos';
 
         if(request()->ajax()) {
             return datatables()->of(Grupo::select('*'))

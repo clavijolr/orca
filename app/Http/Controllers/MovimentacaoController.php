@@ -21,7 +21,7 @@ class MovimentacaoController extends Controller
 
     public function index()
     {
-        $titulo='CFM - Movimentação';
+        $titulo='ORCA - Movimentação';
         // dd($categorias->grupo->grupo);
        // dd('movimentacao');
 

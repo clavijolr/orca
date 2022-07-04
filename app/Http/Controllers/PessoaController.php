@@ -15,7 +15,7 @@ class PessoaController extends Controller
 
     public function index()
     {
-        $titulo='CFM - Cadastro de Pessoas';
+        $titulo='ORCA - Cadastro de Pessoas';
 
         if(request()->ajax()) {
             return datatables()->of(Pessoa::select('*'))

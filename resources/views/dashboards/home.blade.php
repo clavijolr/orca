@@ -13,14 +13,12 @@
                                     <div class="row pb-50">
                                         <div class="col-sm-6 col-12 d-flex justify-content-between flex-column order-sm-1 order-2 mt-1 mt-sm-0">
                                             <div class="mb-1 mb-sm-0">
-                                                <h2 class="font-weight-bolder mb-25">Saldo de R$ 2.0356,00</h2>
-                                                <p class="card-text font-weight-bold mb-2">Mediaa</p>
-                                                <div class="font-medium-2">
-                                                    <span class="text-success mr-25">lucro +5.2%</span>
-                                                    <span>vs Ultimos 7 dias</span>
-                                                </div>
+                                                <h2 class="font-weight-bolder mb-25"> Saldo de <span class="text-success"> $ 1.000,00 </span></h2>
+                                                <hr />
+                                                
+                                                <p>Entradas</p>
+                                                <span class="text-success mr-25">R$ 1.200,00</span>
                                             </div>
-                                            <button type="button" class="btn btn-primary">Ver detalhes</button>
                                         </div>
                                         <div class="col-sm-6 col-12 d-flex justify-content-between flex-column text-right order-sm-2 order-1">
                                             <div class="dropdown chart-dropdown">
@@ -32,11 +30,25 @@
                                                     <a class="dropdown-item" href="javascript:void(0);">Ultimo Mês</a>
                                                     <a class="dropdown-item" href="javascript:void(0);">Ultimo Ano</a>                                                </div>
                                                 </div>
-                                            <div id="avg-sessions-chart"></div>
+                                                <div id="avg-sessions-chart"></div>
+                                                <div class="mb-1 mb-sm-0">
+                                                    
+                                                    <p>Saidas</p>
+                                                <span class="'text-success mr-25">R$ 200,00</span>
+                                            </div>
+                                                
+
                                         </div>
                                     </div>
                                     <hr />
                                     <div class="row avg-sessions pt-50">
+                                        <div class="col-6">
+                                            <p class="mb-50">Total entradas R$ 1.000,00</p>
+                                            <div class="progress progress-bar-success" style="height: 6px">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="90" aria-valuemax="100" style="width: 90%"></div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-6 mb-2">
                                             <p class="mb-50">Meta de : R$100.000,00</p>
                                             <div class="progress progress-bar-primary" style="height: 6px">
@@ -53,12 +65,6 @@
                                             <p class="mb-50">Recebido: 90%</p>
                                             <div class="progress progress-bar-danger" style="height: 6px">
                                                 <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="70" aria-valuemax="100" style="width: 70%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <p class="mb-50">Duração: 3 meses</p>
-                                            <div class="progress progress-bar-success" style="height: 6px">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="90" aria-valuemax="100" style="width: 90%"></div>
                                             </div>
                                         </div>
                                     </div>

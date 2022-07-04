@@ -15,7 +15,7 @@ class EmpresaController extends Controller
 
     public function index()
     {
-        $titulo='CFM - Cadastro de Empresas';
+        $titulo='ORCA - Cadastro de Empresas';
 
         if(request()->ajax()) {
             return datatables()->of(Empresa::get())->make(true);

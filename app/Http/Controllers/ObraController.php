@@ -16,7 +16,7 @@ class ObraController extends Controller
 
     public function index()
     {
-        $titulo='CFM - Obras';
+        $titulo='ORCA - Obras';
         if(request()->ajax()) {
             return datatables()->of(Obra::select('*'))
             ->make(true);

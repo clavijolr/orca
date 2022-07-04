@@ -17,7 +17,7 @@ use App\Http\Controllers\{
 
 //Route::view('/', 'welcome');
 //Auth::routes();
-Auth::routes(['register' => false]);
+//Auth::routes(['register' => false]);
 
 
 Route::view('/dashboard', 'dashboard');
