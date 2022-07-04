@@ -1,8 +1,7 @@
 @extends('layouts.modelo')
 
-    @section('page-script')
-        <!-- Page js files -->
-        @include('categorias.css')
+    @section('header')
+        @include('pessoas.css')
     @endsection
 
     @section('conteudo')
@@ -16,13 +15,13 @@
                     <div  class="card">
                         <div  class="card-datatable table-responsive pt-0">
                             <div class="card-body">
-                                <table  class="table table-bordered" id="datatables-categoria" name='datatables-categoria'>
+                                <table  class="table table-bordered" id="datatables-pessoa" name='datatables-pessoa'>
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Permissões</th>
-                                            <th>Grupo</th>
-                                            <th>Categoria</th>
+                                            <th>Nome</th>
+                                            <th>Razão</th>
+                                            <th>Documento</th>
                                             <th>Ação</th>
                                         </tr>
                                     </thead>
@@ -34,12 +33,11 @@
                 </section>
             <!-- contas list ends -->
             </div>
-            @include('categorias.cadastro')
+            @include('pessoas.cadastro')
         </div>
     @endsection
 
     @section('scripts')
-    @include('categorias.js')
-
+    @include('pessoas.js')
 
     @endsection

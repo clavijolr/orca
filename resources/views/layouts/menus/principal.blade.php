@@ -29,7 +29,7 @@
                                     </g>
                                 </svg>
                             </span>
-                            <h2 class="mb-0 brand-text">CFM</h2>
+                            <h2 class="mb-0 brand-text">ORCA</h2>
                         </a></li>
                     <li class="nav-item nav-toggle"><a class="pr-0 nav-link modern-nav-toggle" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i></a></li>
                 </ul>
@@ -39,11 +39,19 @@
             <div class="navbar-container main-menu-content" data-menu="menu-container">
                 <!-- include ../../../includes/mixins-->
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
+
                     <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="" data-toggle="dropdown"><i data-feather="edit"></i><span data-i18n="Misc">Cadastros</span></a>
                         <ul class="dropdown-menu">
                             @include('layouts.menus.cadastros')
                         </ul>
                     </li>
+                    <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="" data-toggle="dropdown"><i data-feather="dollar-sign"></i><span data-i18n="dollar-sign">Financeiro</span></a>
+                        <ul class="dropdown-menu">
+                            <div class="dropdown-divider"></div>
+                            <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('movimentacoes')}}" data-toggle="dropdown" data-i18n="Movimentações"><span data-i18n="Movimentações">Movimentações</span></a></li>
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>

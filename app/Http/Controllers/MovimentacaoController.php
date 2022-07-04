@@ -6,12 +6,11 @@ use App\Models\Pessoa;
 use App\Models\Conta;
 use App\Models\Grupo;
 use App\Models\Categoria;
-use App\Models\Obra;
 use App\Models\Movimentacao;
 use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Datatables;
+
 class MovimentacaoController extends Controller
 {
     public function __construct()
@@ -21,6 +20,8 @@ class MovimentacaoController extends Controller
 
     public function index()
     {
+
+
         $titulo='ORCA - Movimentação';
         // dd($categorias->grupo->grupo);
        // dd('movimentacao');
@@ -37,7 +38,9 @@ class MovimentacaoController extends Controller
         $emissao = $request->input('mv_emissao_submit');
         $vencimento = $request->input('mv_vencimento_submit');
         $baixa = $request->input('mv_baixa_submit');
-        //return json_encode( $request->input('mv_obra_id'));
+
+       /// return json_encode( Carbon::parse($emissao)->format('Y-m-d H:i:s'));
+
         $retorno = Movimentacao::updateOrCreate(
             ['id' => $request->id ],
             ['emissao'=> Carbon::parse($emissao)->format('Y-m-d'),
@@ -48,9 +51,8 @@ class MovimentacaoController extends Controller
              'grupo_id'=> $request->input('mv_grupo_id'),
              'categoria_id'=> $request->input('mv_categoria_id'),
              'subcategoria_id'=> $request->input('mv_subcategoria_id'),
-             'obra_id'=> $request->input('mv_obra_id'),
-             'pessoa_id'=> $request->input('mv_pessoa_id'),
              'tipo'=> $request->input('mv_tipo'),
+             'pessoa_id'=> $request->input('mv_pessoa_id'),
              'descricao'=> $request->input('mv_descricao'),
              'valor'=>floatval(str_replace(',', '.', str_replace('.', '', $request->input('mv_valor')))),
             ]
@@ -65,7 +67,7 @@ class MovimentacaoController extends Controller
 
     public function get_empresa()
     {
-        $empresas = Empresa::get(['id','empresa','tipo_pessoa','empreiteira']);
+        $empresas = Empresa::get(['id','empresa','tipo_pessoa']);
         return response()->json(['empresas' => $empresas]);
     }
     public function get_conta()
@@ -110,23 +112,22 @@ class MovimentacaoController extends Controller
         }
         return response()->json(['subcategorias' => $subcategorias]);
     }
-    public function get_obra()
-    {
-        $obras = Obra::get(['id','descricao']);
-        return response()->json(['obras' => $obras]);
-    }
-
     public function get_pessoa()
     {
-        $pessoas = Pessoa::orderBy('nome', 'asc')->get(['id','nome']);;
+        $pessoas = Pessoa::get(['id','nome']);
         return response()->json(['pessoas' => $pessoas]);
     }
+
     public function lista()
     {
-        if(request()->ajax()) {    
-                 return datatables()->of(Movimentacao::with('empresa','conta','grupo','categoria')->get())
-            ->make(true);
-        }
+
+
+        $titulo='ORCA - Movimentação';
+        // dd($categorias->grupo->grupo);
+        // dd('movimentacao');
+
+        return view('movimentacoes.lista',compact('titulo'));
+
     }
 
 

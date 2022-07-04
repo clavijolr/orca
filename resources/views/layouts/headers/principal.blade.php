@@ -5,7 +5,7 @@
     <div class="navbar-container d-flex content">
         <ul class="nav navbar-nav disabled">
             <li class="nav-item">
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     <span class="brand-logo">
                         <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
@@ -56,12 +56,24 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav bookmark-icons">
-                <li class="nav-item disabled d-none d-lg-block"><a class="nav-link" href="" data-toggle="tooltip"
-                        data-placement="top" title="Calendario"><i class="ficon" data-feather="calendar"></i></a>
+                <li class="nav-item disabled d-none d-lg-block"><a class="nav-link" href="{{ url('/') }}" data-toggle="tooltip"
+                        data-placement="top" title="Inicio"><i class="ficon" data-feather="home"></i></a>
                 </li>
-                <li class="nav-item disabled d-none d-lg-block"><a class="nav-link" href="" data-toggle="tooltip"
-                        data-placement="top" title="Tarefas"><i class="ficon" data-feather="check-square"></i></a>
-                </li>
+
+                <li class="nav-item  d-none d-lg-block">
+                    <a class="nav-link"
+                    href="{{ url('/movimentacoes') }}"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Movimentações">
+                    <i class="ficon" data-feather="dollar-sign"></i>
+                </a>
+            </li>
+{{--
+            <li class="nav-item disabled d-none d-lg-block"><a class="nav-link" href="" data-toggle="tooltip"
+                    data-placement="top" title="Calendario"><i class="ficon" data-feather="calendar"></i></a>
+            </li>
+ --}}
             </ul>
         </div>
         <ul class="ml-auto nav navbar-nav align-items-center">
@@ -95,7 +107,7 @@
                         </span>
                     </div>
                     <span class="avatar">
-                        <img class="round" src="../../../app-assets//images/portrait/small/avatar-s-0.png"
+                        <img class="round" src="{{asset('/images/portrait/small/avatar-s-0.png')}}"
                             alt="avatar" height="40" width="40">
                         <span class="avatar-status-online"></span>
                     </span>
@@ -108,12 +120,11 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item disabled" href="page-account-settings.html"><i class="mr-50"
                             data-feather="settings"></i> Configuações</a>
-                    <a class="dropdown-item" href="{{ url('/') }}"> 
+{{--                     <a class="dropdown-item" href="{{ url('/') }}">
                         <i class="mr-50" data-feather="power"></i> {{ __('Sair') }}
                     </a>
+ --}}
 
-
-{{--                
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -121,7 +132,6 @@
                             <i class="mr-50" data-feather="power"></i> {{ __('Sair') }}
                         </a>
                     </form>
- --}}
                 </div>
             </li>
         </ul>

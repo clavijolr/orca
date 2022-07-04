@@ -10,11 +10,23 @@
 
     <script type="text/javascript">
 
+        var filtroTeclaDocumento = function(event) {
+            isnumber=((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 44));
+            if (event.charCode == 44) {
+                teste=event.target.value;
+                if (event.target.value.indexOf(",")>=-1) {
+                    isnumber=false;
+                }
+            }
+            return isnumber
+        };
+
         $(document).ready(function() {
             $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $('#datatables-grupo').DataTable({
+            $('#datatables-pessoa').DataTable({
                 processing: true,
                 serverSide: true,
+                pageLength: 10,
                 lengthChange: false,
                 language : {
                         decimal: ",",
@@ -43,42 +55,12 @@
                         }
                     },
 
-                ajax: "{{ url('grupos') }}",
+                ajax: "{{ url('pessoas') }}",
                 columns: [
                     { data: 'id', name: 'id',visible: false},
-                    { data: 'grupo', name: 'grupo'},
-                    { //data: 'tipo', name: 'tipo'
-                        render: function (data, type, full, meta) {
-                            var $tipo_pessoa = full['tipo_pessoa'];
-                            if ($tipo_pessoa === "J") {
-                                return '<span class=" badge badge-pill badge-glow badge-secondary">Jurídica</span>';
-                            }else if ($tipo_pessoa === "A"){
-                                return '<span class=" badge badge-pill badge-glow badge-secondary">Física</span> <span class=" badge badge-pill badge-glow badge-secondary">Jurídica</span>';
-                            }else{
-                                return '<span class=" badge badge-pill badge-glow badge-secondary">Física</span>';
-
-                            }
-                        }
-                    },
-                    { //data: 'tipo', name: 'tipo'
-                        render: function (data, type, full, meta) {
-                            var $status_tipo = full['tipo'];
-                            var $status = {
-                            'D': { title: 'Débito', class: 'badge-glow badge-success' },
-                            'C': { title: 'Crédito', class: 'badge-glow badge-danger' },
-                            };
-                            if (typeof $status[$status_tipo] === 'undefined') {
-                            return data;
-                            }
-                            return (
-                            '<span class="badge badge-pill ' +
-                            $status[$status_tipo].class +
-                            '">' +
-                            $status[$status_tipo].title +
-                            '</span>'
-                            );
-                        }
-                    },
+                    { data: 'nome', name: 'nome'},
+                    { data: 'razao', name: 'razao'},
+                    { data: 'cpfcnpj', name: 'cpfcnpj'},
                     { defaultContent: '<div><a href="" class="btn_edit" >'+feather.icons['edit'].toSvg({ class: 'font-small-4' }) + ' </a>' +
                                       '<a href="" class="btn_del" >'+feather.icons['trash-2'].toSvg({ class: 'font-small-4' }) + '</a></div>'
                     }
@@ -100,7 +82,7 @@
                 // Buttons with Dropdown
                 buttons: [
                     {
-                    text: 'Novo Grupo',
+                    text: 'Nova Pessoa',
                     className: 'btn btn-sm btn-primary align-items-center header-actions mx-1 row mt-50',
                     action: function ( e, dt, node, config ) {
                         criar();
@@ -109,59 +91,49 @@
                         $(node).removeClass('btn-secondary');
                     }
                     }
-                ],
-                /*
-                "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    if (aData['tipo'] == 'C') {
-                        $('td', nRow).addClass("table-danger");
-                    } else  {
-                        $('td', nRow).addClass("table-success");
-                    }
-                }
-                */
+                ]
             });
 
-            $('#datatables-grupo tbody').on('click', 'a.btn_edit', function (e) {
+            $('#datatables-pessoa tbody').on('click', 'a.btn_edit', function (e) {
                 e.preventDefault();
                 var row = $(this).closest('tr');
-                var id = $('#datatables-grupo').DataTable().row( row ).data().id;
+                var id = $('#datatables-pessoa').DataTable().row( row ).data().id;
                 //novaurl='\{\{ url(conta/' + data + ') \}\}';
                 editar(id);
                 return;
             });
-            $('#datatables-grupo tbody').on('click', 'a.btn_del', function (e) {
+            $('#datatables-pessoa tbody').on('click', 'a.btn_del', function (e) {
                 e.preventDefault();
                 var row = $(this).closest('tr');
-                var id = $('#datatables-grupo').DataTable().row( row ).data().id;
-                var grupo = $('#datatables-grupo').DataTable().row( row ).data().grupo;
+                var idpessoa = $('#datatables-pessoa').DataTable().row( row ).data().id;
+                var nome = $('#datatables-pessoa').DataTable().row( row ).data().nome;
                 //novaurl='\{\{ url(conta/' + data + ') \}\}';
                 //alert(data);
-                apagar(id,grupo);
+                apagar(idpessoa,nome);
                 return;
             });
-            $('#div_cadastro_grupo').on('shown.bs.modal', function() {
-                $('#grupo_grupo').trigger('focus');
+            $('#div_cadastro_pessoa').on('shown.bs.modal', function() {
+                $('#pessoa_nome').trigger('focus');
             });
-
 
         });
 
         function editar(id) {
-            $('#tituloModalGrupo').text("Alterar grupo");
-            $('#btn_criar_atualizar_grupo').text('Alterar');
+            $('#tituloModalPessoa').text("Alterar pessoa");
+            $('#btn_criar_atualizar_pessoa').text('Alterar');
+
 
             $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
             $.ajax({
                 type: "post",
-                url: "{{ url('grupo/editar/#registro') }}".replace('#registro',id),
+                url: "{{ url('pessoa/editar/#registro') }}".replace('#registro',id),
                 data: "do=getInfo",
                 success: function(result) {
-                    $('#grupo_id').val(result.id);
-                    $('#grupo_grupo').val(result.grupo);
-                    $('#grupo_tipo').val(result.tipo);
-                    $('#grupo_tipo_pessoa').val(result.tipo_pessoa);
-                    $('#cpfcnpj').val(result.cpfcnpj);
-                    $('#div_cadastro_grupo').modal("show");
+                    $('#pessoa_id').val(result.id);
+                    $('#pessoa_nome').val(result.nome);
+                    $('#pessoa_razao').val(result.razao);
+                    $('#pessoa_cpfcnpj').val(result.cpfcnpj);
+                    $('#div_cadastro_pessoa').modal("show");
                 },
                 error: function(result) {
                     console.log('falha editar');
@@ -171,29 +143,29 @@
         }
 
         function criar() {
-            $('#grupo_id').val('');
-            $('#grupo_grupo').val('');
-            $('#cpfcnpj').val('');
-            $('#grupo_tipo').val('');
-            $('#grupo_tipo_pessoa').val('');
-            $('#tituloModalGrupo').text("Criar grupo");
-            $('#btn_criar_atualizar_grupo').text('Criar');
-            $('#div_cadastro_grupo').modal("show");
+            $('#pessoa_id').val('');
+            $('#pessoa_nome').val('');
+            $('#pessoa_razao').val('');
+            $('#pessoa_cpfcnpj').val('');
+            $('#tituloModalPessoa').text("Criar pessoa");
+            $('#btn_criar_atualizar_pessoa').text('Criar');
+            $('#div_cadastro_pessoa').modal("show");
             return;
         }
 
-
-        function apagar(id,grupo) {
-            if (confirm('Deseja apagar a conta ' + grupo + ' realmente?')) {
+        function apagar(id,pessoa) {
+            //alert('entrou no apagar');
+            if (confirm('Deseja apagar a conta '+pessoa+' realmente?')) {
                 $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
                 $.ajax({
                     type: "post",
-                    url: "{{ url('grupo/apagar/#registro') }}".replace('#registro',id),
+                    url: "{{ url('pessoa/apagar/#registro') }}".replace('#registro',id),
                     data: "do=getInfo",
                     cache: false,
                     async: false,
                     success: function(result) {
-                        $('#datatables-grupo').DataTable().ajax.reload();
+                        //alert('sucesso');
+                        $('#datatables-pessoa').DataTable().ajax.reload();
                     },
                     error: function(result) {
                         console.log('falha editar');
@@ -203,43 +175,33 @@
             return false;
         };
 
-        var filtroTeclas = function(event) {
-            isnumber=((event.charCode >= 48 && event.charCode <= 57) || (event.keyCode == 45 || event.charCode == 44));
-            if (event.charCode == 44) {
-                teste=event.target.value;
-                if (event.target.value.indexOf(",")>=-1) {
-                    isnumber=false;
-                }
-            }
-            return isnumber
-        };
-
-        $('#gravarGrupoForm').submit(function(event){
+        $('#gravarPessoaForm').submit(function(event){
             event.preventDefault();
-            if (!$('#grupo_id').val()){
+            if (!$('#pessoa_id').val()){
                 id='novo';
             }else{
-                id=$('#grupo_id').val();
+                id=$('#pessoa_id').val();
             }
             $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
             $.ajax({
-                url: "{{ url('grupo/gravar/#id') }}".replace('#id',id),
+                url: "{{ url('pessoa/gravar/#id') }}".replace('#id',id),
                 type: "post",
                 data: $(this).serialize(),
                 dataType:'json',
                 success: function(result) {
-                    $('#grupo_id').val('');
-                    $('#grupo_grupo').val('');
-                    $('#grupo_tipo').val('');
-                    $('#grupo_tipo_pessoa').val('');
-                    $('#datatables-grupo').DataTable().ajax.reload();
-                    $('#div_cadastro_grupo').modal("hide");
+                    $('#pessoa_id').val('');
+                    $('#nome').val('');
+                    $('#razao').val('');
+                    $('#cpfcnpj').val('');
+                    $('#datatables-pessoa').DataTable().ajax.reload();
+                    $('#div_cadastro_pessoa').modal("hide");
                 },
                 error: function(result) {
-                    alert('falha ao gravar');
                     console.log("falha receber ");
                 }
             });
 
         });
+
+
     </script>

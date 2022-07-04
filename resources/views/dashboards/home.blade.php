@@ -13,11 +13,11 @@
                                     <div class="row pb-50">
                                         <div class="col-sm-6 col-12 d-flex justify-content-between flex-column order-sm-1 order-2 mt-1 mt-sm-0">
                                             <div class="mb-1 mb-sm-0">
-                                                <h2 class="font-weight-bolder mb-25">Saldo de R$ 2.0356,00</h2>
-                                                <p class="card-text font-weight-bold mb-2">Mediaa</p>
+                                                <h2 class="font-weight-bolder mb-25">Saldo Total R$ 1.000,00</h2>
+                                                <p class="card-text font-weight-bold mb-2">Saldo Atualizado 01 Julho 2022  19:02</p>
                                                 <div class="font-medium-2">
-                                                    <span class="text-success mr-25">lucro +5.2%</span>
-                                                    <span>vs Ultimos 7 dias</span>
+                                                    <span class="text-success mr-25">entradas </span>
+                                                    <span>vs saidas ultimos 7 dias</span>
                                                 </div>
                                             </div>
                                             <button type="button" class="btn btn-primary">Ver detalhes</button>
@@ -37,28 +37,22 @@
                                     </div>
                                     <hr />
                                     <div class="row avg-sessions pt-50">
-                                        <div class="col-6 mb-2">
-                                            <p class="mb-50">Meta de : R$100.000,00</p>
-                                            <div class="progress progress-bar-primary" style="height: 6px">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="50" aria-valuemax="100" style="width: 50%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 mb-2">
-                                            <p class="mb-50">Vendas: R$ 2.000 </p>
-                                            <div class="progress progress-bar-warning" style="height: 6px">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="60" aria-valuemax="100" style="width: 60%"></div>
-                                            </div>
-                                        </div>
                                         <div class="col-6">
-                                            <p class="mb-50">Recebido: 90%</p>
-                                            <div class="progress progress-bar-danger" style="height: 6px">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="70" aria-valuemax="100" style="width: 70%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <p class="mb-50">Duração: 3 meses</p>
+                                            <p class="mb-50">Saldo Atual: R$ 1.000,00 </p>
                                             <div class="progress progress-bar-success" style="height: 6px">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="90" aria-valuemax="100" style="width: 90%"></div>
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="90" aria-valuemax="100" style="width: 100%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 mb-2">
+                                            <p class="mb-50">Gastos previstos : R$ 300,00</p>
+                                            <div class="progress progress-bar-warning" style="height: 6px">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="50" aria-valuemax="100" style="width: 30%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 mb-2">
+                                            <p class="mb-50">Recebimentos não confirmados: 10%</p>
+                                            <div class="progress progress-bar-danger" style="height: 6px">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="60" aria-valuemax="100" style="width: 10%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -86,8 +80,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-2 col-12 d-flex flex-column flex-wrap text-center">
-                                            <h1 class="font-large-2 font-weight-bolder mt-2 mb-0">200</h1>
-                                            <p class="card-text">Lançamentos</p>
+                                            <h1 class="font-large-2 font-weight-bolder mt-2 mb-0">221</h1>
+                                            <p class="card-text">Lançamentos </p>
                                         </div>
                                         <div class="col-sm-10 col-12 d-flex justify-content-center">
                                             <div id="support-trackers-chart"></div>

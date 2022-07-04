@@ -18,7 +18,8 @@ class EmpresaController extends Controller
         $titulo='ORCA - Cadastro de Empresas';
 
         if(request()->ajax()) {
-            return datatables()->of(Empresa::get())->make(true);
+            return datatables()->of(Empresa::get())
+            ->make(true);
         }
 
         return view('empresas.empresa',compact('titulo'));
@@ -35,7 +36,6 @@ class EmpresaController extends Controller
              ['id' => $request->id ],
              ['empresa'=>$request->input('empresa'),
              'cpfcnpj'=>$request->input('cpfcnpj'),
-             'empreiteira'=>!is_null($request->input('empreiteira')),
              'tipo_pessoa'=>$request->input('empresa_tipo_pessoa'),
              ]
          );

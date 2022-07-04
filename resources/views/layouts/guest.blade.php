@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="author" content="luis clavijo">
-    <title>CFM - Cash Flow Management 0.1</title>
+    <title>ORCA - Cash Flow Management 0.1</title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -78,13 +78,13 @@
                                     </g>
                                 </g>
                             </svg>
-                            <h2 class="ml-1 brand-text text-primary">CFM</h2>
+                            <h2 class="ml-1 brand-text text-primary">ORCA</h2>
                         </a>
                         <!-- /Brand logo-->
                         <!-- Left Text-->
                         <div class="p-5 d-none d-lg-flex col-lg-8 align-items-center">
                             <div class="px-5 w-100 d-lg-flex align-items-center justify-content-center">
-                                <img class="img-fluid" src="../../../app-assets/images/pages/login-v2.svg" alt="CFM" />
+                                <img class="img-fluid" src="../../../app-assets/images/pages/login-v2.svg" alt="ORCA" />
                             </div>
                         </div>
                         <!-- /Left Text-->

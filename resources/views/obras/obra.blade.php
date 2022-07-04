@@ -1,8 +1,19 @@
 @extends('layouts.modelo')
 
-    @section('header')
-        @include('contas.css')
+    @section('vendor-style')
+    <!-- vendor css files -->
+   <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
+   <script src="https://npmcdn.com/flatpickr/dist/l10n/ru.js"></script>
+
+
     @endsection
+
+    @section('page-script')
+        <!-- Page js files -->
+        @include('obras.css')
+        <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/pickers/form-flat-pickr.css')) }}">
+     @endsection
+
 
     @section('conteudo')
         <div class="content-wrapper">
@@ -15,14 +26,14 @@
                 <div  class="card">
                     <div  class="card-datatable table-responsive pt-0">
                         <div class="card-body">
-                            <table  class="table table-bordered" id="datatables-conta" name='datatables-conta'>
+                            <table  class="table table-bordered" id="datatables-obra" name='datatables-obra'>
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Descricao</th>
-                                        <th>Agencia</th>
-                                        <th>Conta</th>
-                                        <th>Saldo</th>
+                                        <th>Obra</th>
+                                        <th>Data Inicio</th>
+                                        <th>Data final</th>
+                                        <th>Saldo final</th>
                                         <th>Ação</th>
                                     </tr>
                                 </thead>
@@ -30,14 +41,14 @@
                         </div>
                     </div>
                 </div>
-                 @include('contas.cadastro')
+                 @include('obras.cadastro')
             </section>
-        <!-- contas list ends -->
+        <!-- obras list ends -->
         </div>
     @endsection
 
     @section('scripts')
-    @include('contas.js')
+    @include('obras.js')
     <script type="text/javascript">
 
 

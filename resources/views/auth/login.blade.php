@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="author" content="Luis Roberto Guedes Clavijo">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>{{ config('app.name', 'CFM') }}</title>
+    <title>{{ config('app.name', 'ORCA') }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo/favicon.ico')}}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
@@ -70,7 +70,7 @@
                         <!-- Left Text-->
                         <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
                             <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
-                                <img class="img-fluid" src="{{asset('images/pages/login-v2.svg')}}" alt="Login CFM" />
+                                <img class="img-fluid" src="{{asset('images/pages/login-v2.svg')}}" alt="Login ORCA" />
 
                             </div>
                         </div>
