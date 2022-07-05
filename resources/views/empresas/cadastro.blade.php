@@ -20,9 +20,9 @@
                         class="form-control "
                         id="empresa"
                         name="empresa"
-                        placeholder="Digite o nome da empresa"
+                        placeholder="Digite o nome da entidade"
                         aria-label="Entidade"
-                        aria-describedby="Nome da empresa"
+                        aria-describedby="Nome da entidade"
                         maxlength="30"
                         autocomplete="off"
                         required
@@ -45,7 +45,7 @@
                 </div>
                 <hr>       
                 <div class="form-group">
-                    <label for="empresa_tipo_pessoa">Escolha a clasificação da empresa</label>
+                    <label for="empresa_tipo_pessoa">Escolha a clasificação da entidade</label>
                     <select class="form-control"
                             name='empresa_tipo_pessoa'
                             id="empresa_tipo_pessoa"
