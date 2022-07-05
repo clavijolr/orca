@@ -6,7 +6,6 @@ use App\Models\Pessoa;
 use App\Models\Conta;
 use App\Models\Grupo;
 use App\Models\Categoria;
-use App\Models\Obra;
 use App\Models\Movimentacao;
 use App\Models\Subcategoria;
 use Illuminate\Http\Request;
@@ -37,7 +36,7 @@ class MovimentacaoController extends Controller
         $emissao = $request->input('mv_emissao_submit');
         $vencimento = $request->input('mv_vencimento_submit');
         $baixa = $request->input('mv_baixa_submit');
-        //return json_encode( $request->input('mv_obra_id'));
+        
         $retorno = Movimentacao::updateOrCreate(
             ['id' => $request->id ],
             ['emissao'=> Carbon::parse($emissao)->format('Y-m-d'),
@@ -48,7 +47,6 @@ class MovimentacaoController extends Controller
              'grupo_id'=> $request->input('mv_grupo_id'),
              'categoria_id'=> $request->input('mv_categoria_id'),
              'subcategoria_id'=> $request->input('mv_subcategoria_id'),
-             'obra_id'=> $request->input('mv_obra_id'),
              'pessoa_id'=> $request->input('mv_pessoa_id'),
              'tipo'=> $request->input('mv_tipo'),
              'descricao'=> $request->input('mv_descricao'),
@@ -109,11 +107,6 @@ class MovimentacaoController extends Controller
             $subcategorias = Subcategoria::get(['id','subcategoria']);
         }
         return response()->json(['subcategorias' => $subcategorias]);
-    }
-    public function get_obra()
-    {
-        $obras = Obra::get(['id','descricao']);
-        return response()->json(['obras' => $obras]);
     }
 
     public function get_pessoa()

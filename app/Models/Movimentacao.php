@@ -19,7 +19,6 @@ class Movimentacao extends Model
         'categoria_id',
         'subcategoria_id',
         'pessoa_id',
-        'obra_id',
         'descricao',
         'tipo',
         'valor',
@@ -49,9 +48,5 @@ class Movimentacao extends Model
     {
         return $this->belongsTo(Pessoa::class);
     }
-    public function obra()
-    {
-        return $this->belongsTo(Obra::class);
-    }
-
+    
 }

@@ -18,20 +18,6 @@
 
 <script type="text/javascript">
 
-        const $dta_ini = $("#obra_data_inicio").flatpickr({
-            locale: "pt" ,
-            defaultdate:"null",            
-            altInput: true,
-            dateFormat: "Y-m-d",
-        });
-
-        const $dta_fim = $("#obra_data_fim").flatpickr({
-            locale: "pt" ,
-            defaultdate:"null",            
-            altInput: true,
-            dateFormat: "Y-m-d",
-            
-        });
 
 
     var filtroTeclas = function(event)
@@ -78,7 +64,6 @@
                 $('#mv_grupo_id').val('');
                 $('#mv_categoria_id').val('');
                 $('#mv_subcategoria_id').val('');
-                $('#mv_obra_id').val('');
                 $('#mv_imovel_id').val('');
                 $('#mv_pessoa_id').val('');
                 $('#mv_descricao').val('');
@@ -211,28 +196,7 @@
         });
 
     });
-    $('#gravarObraForm').submit(function(event){
-        event.preventDefault();
-        id='novo';
-        $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-        $.ajax({
-            url: "{{ url('obra/gravar/#id') }}".replace('#id',id),
-            type: "post",
-            data: $(this).serialize(),
-            dataType:'json',
-            success: function(result) {
-                //console.log(result);
-                atualiza_obra();
-                $('#div_cadastro_obra').modal("hide");
-                $("#mv_obra_id").focus();
-                
-            },
-            error: function(result) {
-                console.log(result);
-            }
-        });
 
-    });
 
     $('#gravarPessoaForm').submit(function(event)
     {
@@ -435,44 +399,6 @@
             });
         }
     };
-    function atualiza_obra()
-    {
-        $("#mv_obra_id").empty();
-        var option = "<option value='' selected disabled hidden>Escolha uma obra</option>";
-        $("#mv_obra_id").append(option);
-        let perimete_obras=$("#mv_empresa_id").find(':selected').attr('empreiteira') ;
-      
-        if (perimete_obras == 1){
-            $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-                url: "{{ url('movimentacao/get_obra') }}",
-                type: "post",
-                dataType:'json',
-                success: function(result) {
-                    $('#mv_obra_id').prop('disabled', false);
-
-                    let len = 0;
-                    if (result.obras != null) {
-                        len = result.obras.length;
-                    }
-                    if (len>0) {
-                        for (var i = 0; i<len; i++) {
-                            let id = result.obras[i].id;
-                            let obra = result.obras[i].descricao;
-                            let option = "<option value='" + id + "'>" + obra + "</option>";
-                            $("#mv_obra_id").append(option);
-                        }
-                    }
-                },
-                error: function(result) {
-                    console.log(result);
-                    console.log("falha receber obras");
-                }
-            });
-        }else{
-            $('#mv_obra_id').prop('disabled', 'disabled');
-        }
-    };
     function atualiza_pessoa()
     {
         $("#mv_pessoas_id").empty();
@@ -650,18 +576,7 @@
         $('#div_cadastro_subcategoria').modal("show");
         return;
     });
-    $( "#btn_obra" ).click(function()
-    {
-        alert('obra');
-        $('#obra_id').val('');
-        $('#obra_descricao').val('');
-        $dta_ini.clear();
-        $dta_fim.clear();
-        $('tituloModalObra').text("Criar Obra");
-        $('#btn_criar_atualizar_obra').text('Criar');
-        $('#div_cadastro_obra').modal("show");
-        return;
-    });
+    
     $( "#btn_pessoa" ).click(function()
     {
         $('#pessoa_id').val('');
@@ -678,7 +593,7 @@
         atualiza_grupo();
         atualiza_categoria();
         atualiza_subcategoria();
-        atualiza_obra();
+        
 
     });
     $('#mv_grupo_id').change(function()
@@ -693,10 +608,7 @@
         atualiza_subcategoria();
 
     });
-    $('#mv_obra_id').change(function()
-    {
-        alert('entrou em change');
-    });
+    
 
     $('#div_cadastro_empresa').on('shown.bs.modal', function() {
         $('#empresa').trigger('focus');
@@ -713,9 +625,6 @@
     $('#div_cadastro_subcategoria').on('shown.bs.modal', function() {
         $('#subcategoria').trigger('focus');
     });
-    $('#div_cadastro_obra').on('shown.bs.modal', function() {
-        $('#obra_descricao').trigger('focus');
-    });    
     $('#div_cadastro_pessoa').on('shown.bs.modal', function() {
         $('#pessoa_nome').trigger('focus');
     });

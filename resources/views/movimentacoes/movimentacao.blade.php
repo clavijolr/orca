@@ -159,24 +159,6 @@
                         </div>
                         <div class="col-md-3 col-12">
                             <div class="form-group ">
-                                <label for="mv_obra_id">Escolha uma obra para este lançamento</label>
-                                <div class="input-group">
-                                    <select class="form-control "
-                                        name="mv_obra_id"
-                                        id="mv_obra_id"
-                                        disabled="disabled"
-                                        tabindex="10"
-                                        required>
-                                        <option value="" selected disabled hidden>Escolha uma obra </option>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-sm btn-secondary" name="btn_obra" id="btn_obra" type="button">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="form-group ">
                                 <label for="mv_pessoa_id">Escolha a entidade destino do lançamento</label>
                                 <div class="input-group">
                                     <select class="form-control "
@@ -279,7 +261,6 @@
         @include('grupos.cadastro')
         @include('categorias.cadastro')
         @include('subcategorias.cadastro')
-        @include('obras.cadastro')
         @include('pessoas.cadastro')
     @endsection
 
