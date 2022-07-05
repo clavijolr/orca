@@ -36,8 +36,8 @@
                             required
                             >
                         <option value="" selected disabled hidden>Escolha um tipo </option>
-                        <option value='C'>Entrada</option>
-                        <option value='D'>Saida</option>
+                        <option value='C'>Saida</option>
+                        <option value='D'>Entrada</option>
                     </select>
                 </div>
                 <div class="form-group">

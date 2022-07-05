@@ -1,4 +1,4 @@
-
+{{-- 
 <div  class="modal modal-slide-in fade" id="div_cadastro_transferencia">
     <div class="modal-dialog">
         <form   class=" modal-content pt-0" name="gravarTransferenciaForm" id="gravarTransferenciaForm"  >
@@ -55,4 +55,4 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}

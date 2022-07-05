@@ -134,8 +134,8 @@
                         render: function (data, type, full, meta) {
                             var $status_tipo = full['tipo'];
                             var $status = {
-                            'D': { title: 'Saida', class: 'badge-glow badge-danger' },
-                            'C': { title: 'Entrada', class: 'badge-glow badge-success' },
+                            'D': { title: 'Entrada', class: 'badge-glow badge-success' },
+                            'C': { title: 'Saida', class: 'badge-glow badge-danger' },
                             };
                             if (typeof $status[$status_tipo] === 'undefined') {
                             return data;

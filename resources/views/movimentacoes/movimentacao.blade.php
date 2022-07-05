@@ -90,7 +90,7 @@
                         </div>                        
                         <div class="col-md-3 col-12">
                             <div class="form-group">
-                                <label  for="mv_conta_id">Escolha uma empresa</label>
+                                <label  for="mv_conta_id">Escolha uma entidade</label>
                                 <div class="input-group">
                                     <select class="form-control "
                                         name="mv_empresa_id"
@@ -256,7 +256,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Emissão</th>
-                                <th>Empresa</th>
+                                <th>Entidade</th>
                                 <th>Conta</th>
                                 <th>Grupo</th>
                                 <th>Categoria</th>

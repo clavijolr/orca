@@ -25,7 +25,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Emissão</th>
-                                <th>Empresa</th>
+                                <th>Entidade</th>
                                 <th>Conta</th>
                                 <th>Grupo</th>
                                 <th>Categoria</th>
@@ -90,7 +90,7 @@
                 columns: [
                     { data: 'id', name: 'id',visible: false},
                     { data: 'emissao', name: 'data'},
-                    { data: 'empresa.empresa', name: 'empresa'},
+                    { data: 'empresa.empresa', name: 'entidade'},
                     { data: 'conta.descricao', name: 'conta'},
                     { data: 'grupo.grupo', name: 'grupo'},
                     { data: 'categoria.categoria', name: 'categoria'},

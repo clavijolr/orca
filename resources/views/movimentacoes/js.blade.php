@@ -310,7 +310,7 @@
                         var empresa = result.empresas[i].empresa;
                         var tipo_pessoa = result.empresas[i].tipo_pessoa;
                         var empreiteira = result.empresas[i].empreiteira;
-                        var option = "<option tipo_pessoa ='" + tipo_pessoa + "'empreiteira='"+empreiteira+"' value='" + id + "'>"+empresa+"</option>";
+                        var option = "<option tipo_pessoa ='" + tipo_pessoa + "'empreiteira='"+empreiteira+"' value='" + id + "'>"+entidade+"</option>";
                         $("#mv_empresa_id").append(option);
                     }
                 }
@@ -602,7 +602,7 @@
         $('#empresa_id').val('');
         $('#empresa').val('');
         $('#cpfcnpj').val('');
-        $('#tituloModalEmpresa').text("Criar empresa");
+        $('#tituloModalEmpresa').text("Criar entidade");
         $('#btn_criar_atualizar_empresa').text('Criar');
         $('#div_cadastro_empresa').modal("show");
 
@@ -799,7 +799,7 @@
             columns: [
                 { data: 'id', name: 'id'},
                 { data: 'emissao', name: 'data',visible: false},
-                { data: 'empresa.empresa', name: 'empresa'},
+                { data: 'empresa.empresa', name: 'entidade'},
                 { data: 'conta.descricao', name: 'conta'},
                 { data: 'grupo.grupo', name: 'grupo'},
                 { data: 'categoria.categoria', name: 'categoria'},
