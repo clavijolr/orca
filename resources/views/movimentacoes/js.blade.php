@@ -255,7 +255,7 @@
     function atualiza_empresa()
     {
         $("#mv_empresa_id").empty();
-        var option = "<option value='' selected disabled hidden>Escolha a Empresa</option>";
+        var option = "<option value='' selected disabled hidden>Escolha a Emtidade</option>";
         $("#mv_empresa_id").append(option);
 
         $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
