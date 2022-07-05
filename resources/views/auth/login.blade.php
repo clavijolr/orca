@@ -78,8 +78,8 @@
                         <!-- Login-->
                         <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-                                <h2 class="card-title font-weight-bold mb-1">Bem vindo ao</h2>
-                                <h4 class="card-title font-weight-bold mb-1">Gerenciador de Fluxo de Caixa</h4>
+                                <h2 class="card-title font-weight-bold mb-1">Bem vindo ao ORCA</h2>
+                                <h4 class="card-title font-weight-bold mb-1">Seu gerenciador de orçamento familiar </h4>
 
                                 <p class="card-text mb-2">Entre com seus dados para acessar</p>
 
@@ -101,7 +101,7 @@
                                     <button class="btn btn-primary btn-block" tabindex="3">Entrar</button>
                                 </form>
                                 <hr/>
-                                <a  class="d-flex justify-content-between">
+                                <a  class="d-flex justify-content-between" href="{{ route('register') }}">
                                     <h5 class="card-title font-weight-bold mb-2"> Ou clique aqui para se cadastrar</h4>
                                 </a>
                             </div>
