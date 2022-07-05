@@ -123,7 +123,7 @@
                 }
 
             ],
-                columnDefs: [
+            columnDefs: [
                     {
                         targets: 0,
                         width: "4%",
