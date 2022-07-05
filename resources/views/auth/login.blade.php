@@ -100,6 +100,10 @@
                                     </div>
                                     <button class="btn btn-primary btn-block" tabindex="3">Entrar</button>
                                 </form>
+                                <hr/>
+                                <a  class="d-flex justify-content-between">
+                                    <h5 class="card-title font-weight-bold mb-2"> Ou clique aqui para se cadastrar</h4>
+                                </a>
                             </div>
                         </div>
                         <!-- /Login-->

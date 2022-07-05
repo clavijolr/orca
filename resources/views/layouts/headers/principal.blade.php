@@ -83,7 +83,10 @@
                     <i class="flag-icon flag-icon-br"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdown-flag">
-                    <a class="dropdown-item disabled" href="javascript:void(0);" data-language="en">
+                    <a class="dropdown-item" href="javascript:void(0);" data-language="br">
+                        <i class="flag-icon flag-icon-br"></i> Portugues
+                    </a>
+                    <a class="dropdown-item " href="javascript:void(0);" data-language="en">
                         <i class="flag-icon flag-icon-us"></i> English
                     </a>
                     <a class="dropdown-item disabled" href="javascript:void(0);" data-language="fr">
@@ -91,9 +94,6 @@
                     </a>
                     <a class="dropdown-item disabled" href="javascript:void(0);" data-language="de">
                         <i class="flag-icon flag-icon-de"></i> German
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0);" data-language="br">
-                        <i class="flag-icon flag-icon-br"></i> Portugues
                     </a>
                 </div>
             </li>

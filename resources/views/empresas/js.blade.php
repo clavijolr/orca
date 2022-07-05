@@ -227,7 +227,7 @@
         }else{
             id=$('#empresa_id').val();
         }
-        alert($(this).serialize());
+        //alert($(this).serialize());
 
         $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
         $.ajax({

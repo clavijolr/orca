@@ -7,4 +7,4 @@
         <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('categorias')}}" data-toggle="dropdown" data-i18n="Categorias"><i data-feather="tag"></i><span data-i18n="Categorias">Categorias</span></a></li>
         <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('subcategorias')}}" data-toggle="dropdown" data-i18n="Subcategorias"><i data-feather="grid"></i><span data-i18n="subcategorias">Subcategorias</span></a></li>
         <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('pessoas')}}" data-toggle="dropdown" data-i18n="Pessoas"><i data-feather="users"></i><span data-i18n="Pessoas">Pessoas</span></a></li>
-        <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('obras')}}" data-toggle="dropdown" data-i18n="Obras"><i data-feather="tool"></i><span data-i18n="Obras">Obras</span></a></li>
+        {{-- <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{ url('obras')}}" data-toggle="dropdown" data-i18n="Obras"><i data-feather="tool"></i><span data-i18n="Obras">Obras</span></a></li> --}}
