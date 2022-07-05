@@ -310,7 +310,7 @@
                         var empresa = result.empresas[i].empresa;
                         var tipo_pessoa = result.empresas[i].tipo_pessoa;
                         var empreiteira = result.empresas[i].empreiteira;
-                        var option = "<option tipo_pessoa ='" + tipo_pessoa + "'empreiteira='"+empreiteira+"' value='" + id + "'>"+entidade+"</option>";
+                        var option = "<option tipo_pessoa ='" + tipo_pessoa + "'empreiteira='"+empreiteira+"' value='" + id + "'>"+empresa+"</option>";
                         $("#mv_empresa_id").append(option);
                     }
                 }
@@ -799,7 +799,7 @@
             columns: [
                 { data: 'id', name: 'id'},
                 { data: 'emissao', name: 'data',visible: false},
-                { data: 'empresa.empresa', name: 'entidade'},
+                { data: 'empresa.empresa', name: 'empresa'},
                 { data: 'conta.descricao', name: 'conta'},
                 { data: 'grupo.grupo', name: 'grupo'},
                 { data: 'categoria.categoria', name: 'categoria'},
