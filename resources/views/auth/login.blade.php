@@ -107,9 +107,9 @@
                                         <h5 class="card-title font-weight-bold mb-2"> Ou clique aqui para se cadastrar</h4>
                                     </a>
                                     <!-- Google Login Button -->
-                                    <a href="{{ url('auth/google') }}" class="btn btn-danger">
+                                    {{-- <a href="{{ url('auth/google') }}" class="btn btn-danger">
                                         {{ __('Entrar com Google') }}
-                                    </a>
+                                    </a> --}}
 
                                 </div>
                                 </div>
