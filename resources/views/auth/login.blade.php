@@ -101,22 +101,21 @@
                                     <button class="btn btn-primary btn-block" tabindex="3">Entrar</button>
                                 </form>
                                 <hr/>
-                                <a  class="d-flex justify-content-between" href="{{ route('register') }}">
-                                    <h5 class="card-title font-weight-bold mb-2"> Ou clique aqui para se cadastrar</h4>
-                                </a>
-                                <hr>
-                                                 <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-secondary">
-                                    {{ __('Login') }}
-                                </button>
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-8 offset-md-4">
+                                    <a  class="d-flex justify-content-between" href="{{ route('register') }}">
+                                        <h5 class="card-title font-weight-bold mb-2"> Ou clique aqui para se cadastrar</h4>
+                                    </a>
+                                    <!-- Google Login Button -->
+                                    <a href="{{ url('auth/google') }}" class="btn btn-danger">
+                                        {{ __('Entrar com Google') }}
+                                    </a>
 
-                                <!-- Google Login Button -->
-                                <a href="{{ url('auth/google') }}" class="btn btn-danger">
-                                    {{ __('Login with Google') }}
-                                </a>
-                            </div>
-                            </div>
+                                </div>
+                                </div>
+
+                                <hr/>
+
                         </div>
                         <!-- /Login-->
                     </div>
