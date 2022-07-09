@@ -172,11 +172,14 @@ return [
          * Application Service Providers...
          */
         Yajra\Datatables\DatatablesServiceProvider::class,
-         App\Providers\AppServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
+        App\Providers\JetstreamServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -193,6 +196,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         // ...
     ])->toArray(),
 

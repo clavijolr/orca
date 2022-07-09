@@ -13,11 +13,16 @@ use App\Http\Controllers\{
     ObraController,
     PessoaController,
 };
+
+use App\Http\Controllers\Auth\GoogleSocialiteController;
+
 //use App\Http\Livewire\Contas;
 
 //Route::view('/', 'welcome');
 //Auth::routes();
 //Auth::routes(['register' => false]);
+Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
+Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
 
 
 Route::view('/dashboard', 'dashboard');
@@ -102,3 +107,9 @@ Route::get('movimentacao/get_obra', [MovimentacaoController::class, 'get_obra'])
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
+Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);

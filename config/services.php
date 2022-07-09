@@ -29,5 +29,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'google' => [
+        'client_id' => env('264202588874-sav5mkh346s3mj55tp99373mhfueidsv.apps.googleusercontent.com'),
+        'client_secret' => env('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'),
+        'redirect' => 'http://orca.app.br/auth/google/callback',
+    ],
 
 ];
