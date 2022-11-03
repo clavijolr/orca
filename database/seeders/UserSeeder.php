@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Roberto Guedes',
             'email' => 'clavijolr@gmail.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => '$2y$10$b3POugHL3DP66bH.1xrs.u4zVeF8ZcLdgSMcbC6.ARhJV.llXyjtW',
         ]);
         //
     }
